@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0wrmc6snt30l"]
+
+[ext_resource type="Script" uid="uid://bsphfy8jicc5i" path="res://unit_base.gd" id="1_ju6fh"]
+[ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="2_svo2k"]
+[ext_resource type="PackedScene" uid="uid://qn0dh42fx6xd" path="res://weapon.tscn" id="3_svo2k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_svo2k"]
+radius = 310.026
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ju6fh"]
+radius = 62.1289
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svo2k"]
+size = Vector2(127, 128)
+
+[node name="UnitBase" type="CharacterBody2D" node_paths=PackedStringArray("DetectionRadius", "Hitbox", "Healthbar")]
+script = ExtResource("1_ju6fh")
+Controlling = true
+IsFriendly = true
+DetectionRadius = NodePath("DetectionRadius")
+Hitbox = NodePath("Hitbox")
+WeaponDisplacement = 64
+Healthbar = NodePath("Health")
+BaseMoveSpeed = 200
+BaseMaxHealth = 500
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_svo2k")
+
+[node name="DetectionRadius" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRadius"]
+shape = SubResource("CircleShape2D_svo2k")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[node name="Weapon" parent="Weapons" instance=ExtResource("3_svo2k")]
+BaseDamage = 20
+BaseCooldown = 1.0
+
+[node name="Health" type="ProgressBar" parent="."]
+offset_left = -101.0
+offset_top = 68.0
+offset_right = 101.0
+offset_bottom = 95.0
+value = 50.0
+show_percentage = false
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ju6fh")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-0.5, -1)
+shape = SubResource("RectangleShape2D_svo2k")
+
+[connection signal="area_entered" from="DetectionRadius" to="." method="_on_detection_radius_area_entered"]
+[connection signal="area_exited" from="DetectionRadius" to="." method="_on_detection_radius_area_exited"]
