@@ -8,7 +8,7 @@ class_name BaseWeapon
 @export var Animations : AnimatedSprite2D;
 
 var HitboxOffset : Vector2;
-var WeaponParent : BaseUnit;
+var WeaponParent : CharacterBody2D;
 var Damage : float;
 var CanHit : bool = false;
 var Cooldown : float;
@@ -36,13 +36,13 @@ func ConfigureOffset(_direction: Vector2) -> void:
 
 func _process(delta: float) -> void:
 	if (WeaponParent): 
-		if (!WeaponParent.Controlling): return;
+		if (!WeaponParent.Stats.Controlling): return;
 		ConfigureOffset(get_global_mouse_position() - WeaponParent.position)
 	return;
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if (!area.get_parent().is_class("CharacterBody2D") || area.get_parent() == WeaponParent || !CanHit): return;
-	var UnitHit : BaseUnit = area.get_parent();
+	var UnitHit : CharacterBody2D = area.get_parent();
 	UnitHit.TakeDamage(Damage);
 	return;
 
@@ -59,7 +59,7 @@ func ActivateHitbox(_duration : float) -> void:
 	return;
 
 func UseWeapon(_duration: float) -> void:
-	if (!WeaponParent.Controlling || !CanUse): return;
+	if (!WeaponParent.Stats.Controlling || !CanUse): return;
 	ActivateHitbox(_duration);
 	Animations.visible = true;
 	Animations.play("Slash");

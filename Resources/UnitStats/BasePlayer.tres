@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BaseUnit" load_steps=3 format=3 uid="uid://ckqyi7alddoeu"]
+
+[ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="1_73nfp"]
+[ext_resource type="Script" uid="uid://bjwnkc8xw1f1w" path="res://Resources/Unit.gd" id="2_tcr5j"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_tcr5j")
+Name = "Player"
+BaseAttack = 0
+BaseDefense = 0
+BaseMoveSpeed = 300
+BaseMaxHealth = 100
+BufferRadius = 0
+HeldWeapons = []
+Controlling = true
+IsFriendly = true
+CanAttack = false
+Sprite = ExtResource("1_73nfp")
+WeaponDisplacement = 64
+metadata/_custom_type_script = "uid://bjwnkc8xw1f1w"

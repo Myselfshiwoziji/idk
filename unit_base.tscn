@@ -13,16 +13,8 @@ radius = 62.1289
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svo2k"]
 size = Vector2(127, 128)
 
-[node name="UnitBase" type="CharacterBody2D" node_paths=PackedStringArray("DetectionRadius", "Hitbox", "Healthbar")]
+[node name="UnitBase" type="CharacterBody2D"]
 script = ExtResource("1_ju6fh")
-Controlling = true
-IsFriendly = true
-DetectionRadius = NodePath("DetectionRadius")
-Hitbox = NodePath("Hitbox")
-WeaponDisplacement = 64
-Healthbar = NodePath("Health")
-BaseMoveSpeed = 200
-BaseMaxHealth = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_svo2k")

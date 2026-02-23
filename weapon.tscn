@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://qn0dh42fx6xd"]
+[gd_scene load_steps=10 format=3 uid="uid://qn0dh42fx6xd"]
 
 [ext_resource type="Script" uid="uid://bbksj2gc2tvcx" path="res://weapon.gd" id="1_swcir"]
 [ext_resource type="Texture2D" uid="uid://cfmp6k1e08hcs" path="res://Assets/Sword.png" id="2_o2wld"]
@@ -7,10 +7,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o2wld"]
 radius = 52.5
 height = 105.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8xwfw"]
-atlas = ExtResource("3_8xwfw")
-region = Rect2(0, 0, 41, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fy1u"]
 atlas = ExtResource("3_8xwfw")
@@ -31,9 +27,6 @@ region = Rect2(164, 0, 41, 50)
 [sub_resource type="SpriteFrames" id="SpriteFrames_3fy1u"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8xwfw")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3fy1u")
 }, {
@@ -76,7 +69,7 @@ visible = false
 scale = Vector2(3, 2)
 sprite_frames = SubResource("SpriteFrames_3fy1u")
 animation = &"Slash"
-frame = 4
+frame = 3
 frame_progress = 1.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
