@@ -15,8 +15,8 @@ var MoveSpeed;
 var MaxHealth;
 var Health;
 
-var Chasing : bool;
-var UnitsInRadius : Array[BaseUnit];
+var Chasing : bool = false;
+var UnitsInRadius : Array[CharacterBody2D];
 
 func _ready() -> void:
 	Init();
@@ -33,16 +33,20 @@ func Init():
 	MoveSpeed = Stats.BaseMoveSpeed;
 	Healthbar.max_value = MaxHealth;
 	Healthbar.value = MaxHealth;
-	for _weapon in $Weapons.get_children():
-		_weapon.WeaponParent = self
-		_weapon.HitboxOffset = Vector2(0,-Stats.WeaponDisplacement);
+	
+	$Sprite2D.texture = Stats.Sprite;
+	for _weaponName : String in Stats.HeldWeapons:
+		var Weapon : Node2D = load("res://Weapons/" + _weaponName + ".tscn").instantiate();
+		$Weapons.add_child(Weapon);
+		Weapon.WeaponParent = self
+		Weapon.HitboxOffset = Vector2(0,-Stats.WeaponDisplacement);
 	return;
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if (Stats.Controlling): 
 		Controllable();
-		DynamicCamera();
+		#DynamicCamera();
 	else:
 		if (Chasing): ChaseLogic(UnitsInRadius[0], Stats.BufferRadius)
 		return;
@@ -56,10 +60,19 @@ func Controllable() -> void:
 	
 	return;
 
-func ChaseLogic(_unit : BaseUnit, _bufferDistance : float = 0) -> void:
+func ChaseLogic(_unit : CharacterBody2D, _bufferDistance : float = 0, _zone : int = 10) -> void:
 	var Magnitude : float = (_unit.position - self.position).length();
-	var Direction : Vector2 = (_unit.position - self.position).normalized() if Magnitude >= _bufferDistance else (self.position - _unit.position).normalized();
+	#var Direction : Vector2 = (_unit.position - self.position).normalized() if Magnitude >= _bufferDistance else (self.position - _unit.position).normalized();
 	
+	var Direction : Vector2;
+	if (Magnitude > _bufferDistance + _zone):
+		Direction = (_unit.position - self.position).normalized();
+	elif (Magnitude < _bufferDistance - _zone):
+		Direction = (self.position - _unit.position).normalized();
+	else:
+		#Attack here
+		pass;
+	#print(self.name + " is chasing " + _unit.name)
 	velocity = Direction * MoveSpeed;
 	return;
 
@@ -79,16 +92,16 @@ func DynamicCamera() -> void:
 func _on_detection_radius_area_entered(area: Area2D) -> void:
 	if (Stats.Controlling): return;
 	if (!area.get_parent().is_class("CharacterBody2D")): return;
-	if (area.get_parent().IsFriendly == Stats.IsFriendly): return;
+	if (area.get_parent().Stats.IsFriendly == Stats.IsFriendly): return;
 	
-	Chasing = true;
 	UnitsInRadius.append(area.get_parent());
+	Chasing = true;
 	return;
 
 func _on_detection_radius_area_exited(area: Area2D) -> void:
 	if (Stats.Controlling): return;
 	if (!area.get_parent().is_class("CharacterBody2D")): return;
-	if (area.get_parent().IsFriendly == Stats.IsFriendly): return;
+	if (area.get_parent().Stats.IsFriendly == Stats.IsFriendly): return;
 	
 	UnitsInRadius.remove_at(UnitsInRadius.find(area.get_parent()));
 	if (len(UnitsInRadius) == 0): Chasing = false;

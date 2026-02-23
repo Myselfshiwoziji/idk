@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="BaseUnit" load_steps=3 format=3 uid="uid://c75tertasykah"]
+
+[ext_resource type="Texture2D" uid="uid://dqeii0svumeyd" path="res://Assets/Red_candy.png" id="1_vd1b2"]
+[ext_resource type="Script" uid="uid://bjwnkc8xw1f1w" path="res://Resources/Unit.gd" id="2_sc5gv"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_sc5gv")
+Name = "Goober"
+BaseAttack = 0
+BaseDefense = 0
+BaseMoveSpeed = 100
+BaseMaxHealth = 100
+BufferRadius = 200
+HeldWeapons = Array[String]([])
+Controlling = false
+IsFriendly = false
+CanAttack = false
+Sprite = ExtResource("1_vd1b2")
+WeaponDisplacement = 64
+metadata/_custom_type_script = "uid://bjwnkc8xw1f1w"

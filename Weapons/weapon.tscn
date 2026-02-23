@@ -1,27 +1,27 @@
 [gd_scene load_steps=10 format=3 uid="uid://qn0dh42fx6xd"]
 
-[ext_resource type="Script" uid="uid://bbksj2gc2tvcx" path="res://weapon.gd" id="1_swcir"]
-[ext_resource type="Texture2D" uid="uid://cfmp6k1e08hcs" path="res://Assets/Sword.png" id="2_o2wld"]
-[ext_resource type="Texture2D" uid="uid://30w7ad2ekp8v" path="res://Assets/Slash.png" id="3_8xwfw"]
+[ext_resource type="Script" uid="uid://bbksj2gc2tvcx" path="res://Weapons/weapon.gd" id="1_2ue5o"]
+[ext_resource type="Texture2D" uid="uid://cfmp6k1e08hcs" path="res://Assets/Sword.png" id="2_g6cf3"]
+[ext_resource type="Texture2D" uid="uid://30w7ad2ekp8v" path="res://Assets/Slash.png" id="3_iakxr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o2wld"]
 radius = 52.5
 height = 105.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fy1u"]
-atlas = ExtResource("3_8xwfw")
+atlas = ExtResource("3_iakxr")
 region = Rect2(41, 0, 41, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ne3tx"]
-atlas = ExtResource("3_8xwfw")
+atlas = ExtResource("3_iakxr")
 region = Rect2(82, 0, 41, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blkwi"]
-atlas = ExtResource("3_8xwfw")
+atlas = ExtResource("3_iakxr")
 region = Rect2(123, 0, 41, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymrta"]
-atlas = ExtResource("3_8xwfw")
+atlas = ExtResource("3_iakxr")
 region = Rect2(164, 0, 41, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3fy1u"]
@@ -46,8 +46,8 @@ animations = [{
 
 [node name="Weapon" type="Node2D" node_paths=PackedStringArray("Hitbox", "Animations")]
 scale = Vector2(2, 2)
-script = ExtResource("1_swcir")
-Sprite = ExtResource("2_o2wld")
+script = ExtResource("1_2ue5o")
+Sprite = ExtResource("2_g6cf3")
 Hitbox = NodePath("Area2D")
 BaseDamage = 5
 BaseCooldown = 2.0
@@ -55,7 +55,7 @@ Animations = NodePath("Area2D/AnimatedSprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("2_o2wld")
+texture = ExtResource("2_g6cf3")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(0, -37)

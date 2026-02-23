@@ -1,12 +1,9 @@
-[gd_scene load_steps=17 format=4 uid="uid://diuo2w1tmxmtf"]
+[gd_scene load_steps=13 format=4 uid="uid://diuo2w1tmxmtf"]
 
 [ext_resource type="Texture2D" uid="uid://dl70tf67pt3gn" path="res://Assets/Tilesets/Grass.png" id="1_b56jl"]
 [ext_resource type="Script" uid="uid://lyimatsq3md" path="res://base.gd" id="1_i812h"]
 [ext_resource type="Texture2D" uid="uid://cqgkpx3f68is" path="res://Assets/Tilesets/Fences.png" id="2_i812h"]
-[ext_resource type="PackedScene" uid="uid://b0wrmc6snt30l" path="res://unit_base.tscn" id="4_58kua"]
 [ext_resource type="Texture2D" uid="uid://bbpu6p5ivcf2t" path="res://Assets/Tilesets/TilemapHouse.png" id="4_swcnr"]
-[ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="5_22hco"]
-[ext_resource type="Script" uid="uid://bjwnkc8xw1f1w" path="res://Resources/Unit.gd" id="6_swcnr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58kua"]
 texture = ExtResource("1_b56jl")
@@ -4627,23 +4624,6 @@ custom_data_layer_1/name = "Damage"
 custom_data_layer_1/type = 3
 sources/0 = SubResource("TileSetAtlasSource_6ol3t")
 
-[sub_resource type="Resource" id="Resource_swcnr"]
-resource_local_to_scene = true
-script = ExtResource("6_swcnr")
-Name = "Player"
-BaseAttack = 0
-BaseDefense = 0
-BaseMoveSpeed = 300
-BaseMaxHealth = 100
-BufferRadius = 0
-HeldWeapons = []
-Controlling = true
-IsFriendly = true
-CanAttack = false
-Sprite = ExtResource("5_22hco")
-WeaponDisplacement = 64
-metadata/_custom_type_script = "uid://bjwnkc8xw1f1w"
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_i812h")
 
@@ -4660,8 +4640,3 @@ tile_set = SubResource("TileSet_4phwr")
 [node name="Damage" type="TileMapLayer" parent="Tilemap"]
 tile_map_data = PackedByteArray("AAD9//z/AAABAAAAAAD9//3/AAABAAEAAAD9//7/AAABAAIAAAD+//z/AAABAAAAAAD+//3/AAABAAEAAAD+//7/AAABAAIAAAD///z/AAABAAAAAAD///3/AAABAAEAAAD///7/AAABAAIAAAAAAPz/AAABAAAAAAAAAP3/AAABAAEAAAAAAP7/AAABAAIAAAABAPz/AAABAAAAAAABAP3/AAABAAEAAAABAP7/AAABAAIAAAACAPz/AAABAAAAAAACAP3/AAABAAEAAAACAP7/AAABAAIAAAADAPz/AAABAAAAAAADAP3/AAABAAEAAAADAP7/AAABAAIAAAAEAPz/AAABAAAAAAAEAP3/AAABAAEAAAAEAP7/AAABAAIAAAAFAPz/AAABAAAAAAAFAP3/AAABAAEAAAAFAP7/AAABAAIAAAAGAPz/AAABAAAAAAAGAP3/AAABAAEAAAAGAP7/AAABAAIAAAAHAPz/AAABAAAAAAAHAP3/AAABAAEAAAAHAP7/AAABAAIAAAAIAPz/AAABAAAAAAAIAP3/AAABAAEAAAAIAP7/AAABAAIAAAAJAPz/AAABAAAAAAAJAP3/AAABAAEAAAAJAP7/AAABAAIAAAAKAPz/AAABAAAAAAAKAP3/AAABAAEAAAAKAP7/AAABAAIAAAALAPz/AAABAAAAAAALAP3/AAABAAEAAAALAP7/AAABAAIAAAAMAPz/AAABAAAAAAAMAP3/AAABAAEAAAAMAP7/AAABAAIAAAANAPz/AAABAAAAAAANAP3/AAABAAEAAAANAP7/AAABAAIAAAAOAPz/AAABAAAAAAAOAP3/AAABAAEAAAAOAP7/AAABAAIAAAAPAPz/AAABAAAAAAAPAP3/AAABAAEAAAAPAP7/AAABAAIAAAAQAPz/AAABAAAAAAAQAP3/AAABAAEAAAAQAP7/AAABAAIAAAARAPz/AAABAAAAAAARAP3/AAABAAEAAAARAP7/AAABAAIAAAASAPz/AAABAAAAAAASAP3/AAABAAEAAAASAP7/AAABAAIAAAATAPz/AAABAAAAAAATAP3/AAABAAEAAAATAP7/AAABAAIAAAAUAPz/AAABAAAAAAAUAP3/AAABAAEAAAAUAP7/AAABAAIAAAAVAPz/AAACAAAAAAAVAP3/AAACAAEAAAAVAP7/AAACAAIAAAD6//z/AAAAAAAAAAD7//z/AAABAAAAAAD8//z/AAABAAAAAAD6//3/AAAAAAEAAAD7//3/AAABAAEAAAD8//3/AAABAAEAAAD6//7/AAAAAAEAAAD7//7/AAABAAEAAAD8//7/AAAFAAEAAAD6////AAAAAAEAAAD7////AAABAAEAAAD8////AAACAAEAAAD6/wAAAAAAAAEAAAD7/wAAAAABAAEAAAD8/wAAAAACAAEAAAD6/wEAAAAAAAEAAAD7/wEAAAABAAEAAAD8/wEAAAACAAEAAAD6/wIAAAAAAAEAAAD7/wIAAAABAAEAAAD8/wIAAAACAAEAAAD6/wMAAAAAAAEAAAD7/wMAAAABAAEAAAD8/wMAAAACAAEAAAD6/wQAAAAAAAEAAAD7/wQAAAABAAEAAAD8/wQAAAACAAEAAAD6/wUAAAAAAAEAAAD7/wUAAAABAAEAAAD8/wUAAAACAAEAAAD6/wYAAAAAAAEAAAD7/wYAAAABAAEAAAD8/wYAAAACAAEAAAD6/wcAAAAAAAEAAAD7/wcAAAABAAEAAAD8/wcAAAACAAEAAAD6/wgAAAAAAAEAAAD7/wgAAAABAAEAAAD8/wgAAAACAAEAAAD6/wkAAAAAAAEAAAD7/wkAAAABAAEAAAD8/wkAAAACAAEAAAD6/woAAAAAAAEAAAD7/woAAAABAAEAAAD8/woAAAACAAEAAAD6/wsAAAAAAAIAAAD7/wsAAAABAAIAAAD8/wsAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_4p605")
-
-[node name="UnitBase" parent="." instance=ExtResource("4_58kua")]
-position = Vector2(387, -12)
-scale = Vector2(0.5, 0.5)
-Stats = SubResource("Resource_swcnr")
