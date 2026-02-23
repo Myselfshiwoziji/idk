@@ -13,6 +13,8 @@ radius = 52.0
 size = Vector2(127, 128)
 
 [node name="UnitBase" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_ju6fh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

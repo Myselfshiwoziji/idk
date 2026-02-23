@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MapRules" load_steps=2 format=3 uid="uid://d2t64u25k4fwg"]
+
+[ext_resource type="Script" uid="uid://d2qenscouordk" path="res://Resources/MapResource.gd" id="1_5p4j1"]
+
+[resource]
+script = ExtResource("1_5p4j1")
+SpawnEnemies = false
+metadata/_custom_type_script = "uid://d2qenscouordk"

@@ -49,7 +49,7 @@ scale = Vector2(2, 2)
 script = ExtResource("1_2ue5o")
 Sprite = ExtResource("2_g6cf3")
 Hitbox = NodePath("Area2D")
-BaseDamage = 5
+BaseDamage = 30
 BaseCooldown = 2.0
 Animations = NodePath("Area2D/AnimatedSprite2D")
 

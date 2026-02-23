@@ -40,6 +40,14 @@ func Init():
 		$Weapons.add_child(Weapon);
 		Weapon.WeaponParent = self
 		Weapon.HitboxOffset = Vector2(0,-Stats.WeaponDisplacement);
+	
+	#Collision layers
+	if (Stats.Controlling):
+		self.collision_layer = 1;
+		self.collision_mask = 2;
+	else:
+		self.collision_layer = 2;
+		self.collision_mask = 1;
 	return;
 
 func _physics_process(delta: float) -> void:
