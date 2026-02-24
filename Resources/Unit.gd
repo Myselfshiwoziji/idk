@@ -8,7 +8,7 @@ class_name BaseUnit;
 @export var BaseMoveSpeed : int;
 @export var BaseMaxHealth : int;
 @export var BufferRadius : int = 0;
-@export var HeldWeapons : Array[String];
+@export var HeldWeapons : Array[PackedScene];
 
 @export_subgroup("Unit data")
 @export var Controlling : bool;

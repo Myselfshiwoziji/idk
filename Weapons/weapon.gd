@@ -6,6 +6,8 @@ class_name BaseWeapon
 @export var BaseDamage : int;
 @export var BaseCooldown : float = 5;
 @export var Animations : AnimatedSprite2D;
+@export var UseDisplacement : bool = true;
+@export var LingerTime : float = 0.3;
 
 var HitboxOffset : Vector2;
 var WeaponParent : CharacterBody2D;
@@ -13,6 +15,8 @@ var Damage : float;
 var CanHit : bool = false;
 var Cooldown : float;
 var CanUse : bool;
+
+var TempMultipliers : Array[String] = [];
 
 func _ready():
 	HitboxOffset = Hitbox.position;
@@ -22,6 +26,7 @@ func _ready():
 	return;
 
 func ConfigureOffset(_direction: Vector2) -> void:
+	if (!UseDisplacement): return;
 	#incase its not normalised already
 	_direction = _direction.normalized();
 	var Magnitude = HitboxOffset.length();

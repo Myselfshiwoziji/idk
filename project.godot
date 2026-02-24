@@ -15,6 +15,10 @@ run/main_scene="uid://diuo2w1tmxmtf"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EventBus="*res://Globals/EventBus.gd"
+
 [input]
 
 Up={

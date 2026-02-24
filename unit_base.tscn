@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0wrmc6snt30l"]
+[gd_scene load_steps=7 format=3 uid="uid://b0wrmc6snt30l"]
 
 [ext_resource type="Script" uid="uid://bsphfy8jicc5i" path="res://unit_base.gd" id="1_ju6fh"]
 [ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="2_svo2k"]
+[ext_resource type="PackedScene" uid="uid://brscbitql0gmg" path="res://UI/game_ui.tscn" id="3_svo2k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_svo2k"]
 radius = 310.026
@@ -28,6 +29,13 @@ shape = SubResource("CircleShape2D_svo2k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
+
+[node name="GameUI" parent="Camera2D" instance=ExtResource("3_svo2k")]
+visible = false
+offset_left = -561.0
+offset_top = -294.0
+offset_right = -561.0
+offset_bottom = -294.0
 
 [node name="Weapons" type="Node2D" parent="."]
 

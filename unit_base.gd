@@ -23,6 +23,7 @@ func _ready() -> void:
 	if (Stats.Controlling):
 		DetectionRadius.monitoring = false;
 		Camera.enabled = true;
+		$Camera2D/GameUI.visible = true;
 	return;
 
 func Init():
@@ -35,11 +36,17 @@ func Init():
 	Healthbar.value = MaxHealth;
 	
 	$Sprite2D.texture = Stats.Sprite;
-	for _weaponName : String in Stats.HeldWeapons:
-		var Weapon : Node2D = load("res://Weapons/" + _weaponName + ".tscn").instantiate();
-		$Weapons.add_child(Weapon);
-		Weapon.WeaponParent = self
-		Weapon.HitboxOffset = Vector2(0,-Stats.WeaponDisplacement);
+	#for _weaponName : String in Stats.HeldWeapons:
+		#var Weapon : Node2D = load("res://Weapons/" + _weaponName + ".tscn").instantiate();
+		#$Weapons.add_child(Weapon);
+		#Weapon.WeaponParent = self
+		#Weapon.HitboxOffset = Vector2(0,-Stats.WeaponDisplacement);
+	for _weapon : PackedScene in Stats.HeldWeapons:
+		var NewWeapon : Node2D = _weapon.instantiate();
+		$Weapons.add_child(NewWeapon);
+		NewWeapon.WeaponParent = self
+		NewWeapon.HitboxOffset = Vector2(0,-Stats.WeaponDisplacement);
+		continue;
 	
 	#Collision layers
 	if (Stats.Controlling):
@@ -89,7 +96,9 @@ func TakeDamage(_rawAmount : int) -> void:
 	Health -= (_rawAmount - Defense) if _rawAmount > Defense else 1;
 	Healthbar.value = Health;
 	
-	if (Health <= 0): self.queue_free();
+	if (Health <= 0): 
+		EventBus.UnitKilled.emit(self)
+		self.queue_free();
 	return;
 
 func DynamicCamera() -> void:
@@ -118,6 +127,9 @@ func _on_detection_radius_area_exited(area: Area2D) -> void:
 func _input(event: InputEvent) -> void:
 	if (!Stats.Controlling): return;
 	if (Input.is_action_just_pressed("m1")):
-		$Weapons/Weapon.UseWeapon(0.3)
+		for _weapon in $Weapons.get_children():
+			_weapon.UseWeapon(_weapon.LingerTime);
+			continue;
+		#$Weapons/Weapon.UseWeapon(0.3)
 		return;
 	return;
