@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0wrmc6snt30l"]
+[gd_scene load_steps=8 format=3 uid="uid://b0wrmc6snt30l"]
 
 [ext_resource type="Script" uid="uid://bsphfy8jicc5i" path="res://unit_base.gd" id="1_ju6fh"]
 [ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="2_svo2k"]
 [ext_resource type="PackedScene" uid="uid://brscbitql0gmg" path="res://UI/game_ui.tscn" id="3_svo2k"]
+[ext_resource type="PackedScene" uid="uid://dc5rqsj0htgg" path="res://Buffs/Burn.tscn" id="4_x60li"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_svo2k"]
 radius = 310.026
@@ -55,6 +56,10 @@ shape = SubResource("CircleShape2D_ju6fh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(-0.5, -1)
 shape = SubResource("RectangleShape2D_svo2k")
+
+[node name="Buffs" type="Node2D" parent="."]
+
+[node name="BaseBuff" parent="Buffs" instance=ExtResource("4_x60li")]
 
 [connection signal="area_entered" from="DetectionRadius" to="." method="_on_detection_radius_area_entered"]
 [connection signal="area_exited" from="DetectionRadius" to="." method="_on_detection_radius_area_exited"]

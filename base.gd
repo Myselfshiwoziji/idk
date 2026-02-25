@@ -5,6 +5,9 @@ var SpawnFunctions = BaseSpawn.new();
 
 var PlayerSpawnpoint : Vector2 = Vector2.ZERO;
 var EnemySpawnpoints : Array[Vector2] = [];
+
+#var UnitsOnMap : Array[CharacterBody2D] = [];
+
 @onready var Spawnpoints : Node2D = $Spawnpoints;
 func _ready() -> void:
 	ConnectSignals();
@@ -16,7 +19,7 @@ func _ready() -> void:
 	return;
 
 func ConnectSignals() -> void:
-	EventBus.UnitKilled.connect(print);
+	#EventBus.UnitKilled.connect(print);
 	return;
 
 func InitSpawnpoints() -> void:

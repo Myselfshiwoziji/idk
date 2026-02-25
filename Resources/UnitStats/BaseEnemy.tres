@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="BaseUnit" load_steps=3 format=3 uid="uid://c75tertasykah"]
+[gd_resource type="Resource" script_class="BaseUnit" load_steps=4 format=3 uid="uid://c75tertasykah"]
 
+[ext_resource type="PackedScene" uid="uid://qn0dh42fx6xd" path="res://Weapons/weapon.tscn" id="1_sc5gv"]
 [ext_resource type="Texture2D" uid="uid://dqeii0svumeyd" path="res://Assets/Red_candy.png" id="1_vd1b2"]
 [ext_resource type="Script" uid="uid://bjwnkc8xw1f1w" path="res://Resources/Unit.gd" id="2_sc5gv"]
 
@@ -12,7 +13,7 @@ BaseDefense = 0
 BaseMoveSpeed = 100
 BaseMaxHealth = 100
 BufferRadius = 200
-HeldWeapons = Array[String]([])
+HeldWeapons = Array[PackedScene]([ExtResource("1_sc5gv")])
 Controlling = false
 IsFriendly = false
 CanAttack = false

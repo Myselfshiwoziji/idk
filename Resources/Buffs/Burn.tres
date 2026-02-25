@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BuffStats" load_steps=3 format=3 uid="uid://cvwrn4bnfv254"]
+
+[ext_resource type="Texture2D" uid="uid://du28kspakevcq" path="res://Assets/FireDebuff.png" id="1_f48ww"]
+[ext_resource type="Script" uid="uid://cnunyt0rdus3h" path="res://Resources/BuffResource.gd" id="1_m6b6r"]
+
+[resource]
+script = ExtResource("1_m6b6r")
+BuffName = "Burn"
+BuffDesc = "Deals 5 damage per second for 5 seconds."
+DefaultDuration = 5.0
+Sprite = ExtResource("1_f48ww")
+metadata/_custom_type_script = "uid://cnunyt0rdus3h"

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+signal HealthChanged(_value : float, _reason)
 
 @onready var DetectionRadius : Area2D = $DetectionRadius;
 @onready var Hitbox : CollisionShape2D = $Hitbox;
@@ -10,13 +11,30 @@ extends CharacterBody2D
 @onready var Camera = $Camera2D
 
 var Attack;
+var AttackFlat : float = 0;
+var AttackMult : float = 1;
+
 var Defense;
+var DefenseFlat : float = 0;
+var DefenseMult : float = 1;
+
 var MoveSpeed;
+var MoveSpeedFlat : float = 0;
+var MoveSpeedMult : float = 1;
+
 var MaxHealth;
+var MaxHealthFlat : float = 0;
+var MaxHealthMult : float = 1;
+
 var Health;
+
+var DamageRes;
+var UsedDamageRes;
 
 var Chasing : bool = false;
 var UnitsInRadius : Array[CharacterBody2D];
+
+var Buffs : Dictionary[String, Array] = {}
 
 func _ready() -> void:
 	Init();
@@ -26,14 +44,28 @@ func _ready() -> void:
 		$Camera2D/GameUI.visible = true;
 	return;
 
+func AddBuff(_buff : PackedScene) -> void:
+	var NewBuff : BaseBuff = _buff.instantiate();
+	$Buffs.add_child(NewBuff);
+	NewBuff.Owner = self;
+	if (!Buffs[_buff.name]):
+		Buffs[_buff.name] = [NewBuff];
+	else:
+		Buffs[_buff.name].append(NewBuff);
+	return;
+
 func Init():
-	Attack = Stats.BaseAttack;
-	Defense = Stats.BaseDefense;
-	MaxHealth = Stats.BaseMaxHealth;
+	Attack = Stats.BaseAttack  * AttackMult + AttackFlat;
+	Defense = Stats.BaseDefense * DefenseMult + DefenseFlat;
+	MaxHealth = Stats.BaseMaxHealth * MaxHealthMult + MaxHealthFlat;
 	Health = MaxHealth;
-	MoveSpeed = Stats.BaseMoveSpeed;
+	MoveSpeed = Stats.BaseMoveSpeed * MoveSpeedMult + MoveSpeedFlat;
 	Healthbar.max_value = MaxHealth;
 	Healthbar.value = MaxHealth;
+	
+	#1 = 23.0%, 2 = 40.8%, 3 = 54.4%, 4 = 64.0%, etc.
+	DamageRes = Stats.BaseDamageRes;
+	CalculateUsedDamageRes();
 	
 	$Sprite2D.texture = Stats.Sprite;
 	#for _weaponName : String in Stats.HeldWeapons:
@@ -55,6 +87,23 @@ func Init():
 	else:
 		self.collision_layer = 2;
 		self.collision_mask = 1;
+	
+	HealthChanged.connect(HealthValueChanged);
+	return;
+
+func HealthValueChanged(_new, _reason) -> void:
+	Healthbar.value = Health;
+	return;
+
+func CalculateUsedDamageRes() -> void:
+	UsedDamageRes = 1 - 1.3**(-DamageRes);
+	return;
+
+func AttackLogic() -> void:
+	if (len($Weapons.get_children()) == 0): return;
+	for _weapon in $Weapons.get_children():
+		_weapon.UseWeapon(_weapon.LingerTime);
+		continue;
 	return;
 
 func _physics_process(delta: float) -> void:
@@ -86,6 +135,7 @@ func ChaseLogic(_unit : CharacterBody2D, _bufferDistance : float = 0, _zone : in
 		Direction = (self.position - _unit.position).normalized();
 	else:
 		#Attack here
+		AttackLogic();
 		pass;
 	#print(self.name + " is chasing " + _unit.name)
 	velocity = Direction * MoveSpeed;
@@ -93,8 +143,10 @@ func ChaseLogic(_unit : CharacterBody2D, _bufferDistance : float = 0, _zone : in
 
 func TakeDamage(_rawAmount : int) -> void:
 	#Minimum damage taken is 1
-	Health -= (_rawAmount - Defense) if _rawAmount > Defense else 1;
-	Healthbar.value = Health;
+	_rawAmount = _rawAmount * (1-UsedDamageRes);
+	var DamageDealt : float = (_rawAmount - Defense) if _rawAmount > Defense else 1;
+	#Health -= (_rawAmount - Defense) if _rawAmount > Defense else 1;
+	ChangeHealthValue(Health - DamageDealt);
 	
 	if (Health <= 0): 
 		EventBus.UnitKilled.emit(self)
@@ -132,4 +184,10 @@ func _input(event: InputEvent) -> void:
 			continue;
 		#$Weapons/Weapon.UseWeapon(0.3)
 		return;
+	return;
+
+func ChangeHealthValue(_newValue : float, _reason : Variant = null) -> void:
+	if (_newValue == Health): return;
+	Health = _newValue;
+	HealthChanged.emit(_newValue, _reason);
 	return;
