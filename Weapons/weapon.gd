@@ -10,6 +10,8 @@ class_name BaseWeapon
 @export var UseDisplacement : bool = true;
 @export var LingerTime : float = 0.3;
 
+@export var HitboxPreview : Control;
+
 var HitboxOffset : Vector2;
 var WeaponParent : CharacterBody2D;
 var Damage : float;
@@ -18,6 +20,8 @@ var Cooldown : float;
 var CanUse : bool;
 
 var TempMultipliers : Array[String] = [];
+
+@export var MarkerSprite : Sprite2D;
 
 func _ready():
 	HitboxOffset = Hitbox.position;

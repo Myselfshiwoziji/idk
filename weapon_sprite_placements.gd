@@ -22,10 +22,13 @@ func AddWeaponSpritesToMarker(_weaponArray : Array[Node], _radius = RingRadius) 
 		var WeaponToPut : Node = _weaponArray[i];
 		var Marker : Marker2D = self.get_child(i);
 		
-		var NewSprite : Sprite2D = Sprite2D.new();
+		#var NewSprite : Sprite2D = Sprite2D.new();
+		var NewSprite = WeaponToPut.MarkerSprite;
 		NewSprite.texture = WeaponToPut.Sprite;
-		WeaponToPut.add_child(NewSprite);
+		#WeaponToPut.add_child(NewSprite);
 		NewSprite.position = Marker.position;
+		
+		WeaponToPut.MarkerSprite = NewSprite;
 		continue;
 	return;
 

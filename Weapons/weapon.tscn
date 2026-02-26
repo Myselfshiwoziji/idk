@@ -44,7 +44,7 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Weapon" type="Node2D" node_paths=PackedStringArray("Hitbox", "Animations")]
+[node name="Weapon" type="Node2D" node_paths=PackedStringArray("Hitbox", "Animations", "MarkerSprite")]
 scale = Vector2(2, 2)
 script = ExtResource("1_2ue5o")
 Sprite = ExtResource("2_g6cf3")
@@ -52,9 +52,9 @@ Hitbox = NodePath("Area2D")
 BaseDamage = 30
 BaseCooldown = 2.0
 Animations = NodePath("Area2D/AnimatedSprite2D")
+MarkerSprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("2_g6cf3")
 
 [node name="Area2D" type="Area2D" parent="."]
