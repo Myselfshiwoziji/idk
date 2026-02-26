@@ -49,8 +49,8 @@ func _ready() -> void:
 		$Camera2D/GameUI.visible = true;
 	return;
 
-func AddBuff(_buff : PackedScene) -> void:
-	var NewBuff := _buff.instantiate();
+func AddBuff(_buff : Variant) -> void:
+	var NewBuff : Node2D = _buff.instantiate() if _buff.is_class("PackedScene") else _buff;
 	$Buffs.add_child(NewBuff);
 	NewBuff.Owner = self;
 	if (Buffs.keys().find(NewBuff.Stats.BuffName) == -1):
@@ -178,9 +178,9 @@ func TakeDamage(_rawAmount : int) -> void:
 	#Health -= (_rawAmount - Defense) if _rawAmount > Defense else 1;
 	ChangeHealthValue(Health - DamageDealt);
 	
-	if (Health <= 0): 
-		EventBus.UnitKilled.emit(self)
-		self.queue_free();
+	#if (Health <= 0): 
+		#EventBus.UnitKilled.emit(self)
+		#self.queue_free();
 	return;
 
 func DynamicCamera() -> void:
@@ -220,6 +220,14 @@ func ChangeHealthValue(_newValue : float, _reason : Variant = null) -> void:
 	if (_newValue == Health): return;
 	Health = _newValue;
 	HealthChanged.emit(_newValue, _reason);
+	
+	if (Health <= 0): 
+		UnitDeath();
+		EventBus.UnitKilled.emit(self)
+	return;
+
+func UnitDeath() -> void:
+	self.queue_free();
 	return;
 
 func ChangeMaxHealthValue(_newValue : float, _reason : Variant = null) -> void:

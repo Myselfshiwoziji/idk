@@ -1,58 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://qn0dh42fx6xd"]
+[gd_scene load_steps=6 format=3 uid="uid://qn0dh42fx6xd"]
 
 [ext_resource type="Script" uid="uid://bbksj2gc2tvcx" path="res://Weapons/weapon.gd" id="1_2ue5o"]
 [ext_resource type="Texture2D" uid="uid://cfmp6k1e08hcs" path="res://Assets/Sword.png" id="2_g6cf3"]
-[ext_resource type="Texture2D" uid="uid://30w7ad2ekp8v" path="res://Assets/Slash.png" id="3_iakxr"]
+[ext_resource type="SpriteFrames" uid="uid://ditv1fbvaetpr" path="res://Assets/Animations/sworduse.tres" id="3_g6cf3"]
+[ext_resource type="StyleBox" uid="uid://dl6iqv0s5kus3" path="res://UI/HitboxPreview/Circle.tres" id="4_g6cf3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o2wld"]
 radius = 52.5
 height = 105.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3fy1u"]
-atlas = ExtResource("3_iakxr")
-region = Rect2(41, 0, 41, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ne3tx"]
-atlas = ExtResource("3_iakxr")
-region = Rect2(82, 0, 41, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_blkwi"]
-atlas = ExtResource("3_iakxr")
-region = Rect2(123, 0, 41, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ymrta"]
-atlas = ExtResource("3_iakxr")
-region = Rect2(164, 0, 41, 50)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_3fy1u"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3fy1u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ne3tx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_blkwi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ymrta")
-}],
-"loop": false,
-"name": &"Slash",
-"speed": 15.0
-}]
-
-[node name="Weapon" type="Node2D" node_paths=PackedStringArray("Hitbox", "Animations", "MarkerSprite")]
+[node name="Weapon" type="Node2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_2ue5o")
-Sprite = ExtResource("2_g6cf3")
-Hitbox = NodePath("Area2D")
-BaseDamage = 30
-BaseCooldown = 2.0
-Animations = NodePath("Area2D/AnimatedSprite2D")
-MarkerSprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_g6cf3")
@@ -68,10 +27,25 @@ shape = SubResource("CapsuleShape2D_o2wld")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
 visible = false
 scale = Vector2(3, 2)
-sprite_frames = SubResource("SpriteFrames_3fy1u")
+sprite_frames = ExtResource("3_g6cf3")
 animation = &"Slash"
 frame = 3
 frame_progress = 1.0
+
+[node name="HitboxPreview" type="Control" parent="Area2D"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Area2D/HitboxPreview"]
+layout_mode = 0
+offset_left = -52.0
+offset_top = -53.0
+offset_right = 52.0
+offset_bottom = 53.0
+theme_override_styles/panel = ExtResource("4_g6cf3")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="animation_finished" from="Area2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -9,4 +9,5 @@ BuffName = "Burn"
 BuffDesc = "Deals 5 damage per second for 5 seconds."
 DefaultDuration = 5.0
 Sprite = ExtResource("1_f48ww")
+Strength = 1.5
 metadata/_custom_type_script = "uid://cnunyt0rdus3h"

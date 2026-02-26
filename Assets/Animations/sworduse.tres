@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://ditv1fbvaetpr"]
+
+[ext_resource type="Texture2D" uid="uid://30w7ad2ekp8v" path="res://Assets/Slash.png" id="1_dxpih"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fy1u"]
+atlas = ExtResource("1_dxpih")
+region = Rect2(41, 0, 41, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne3tx"]
+atlas = ExtResource("1_dxpih")
+region = Rect2(82, 0, 41, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blkwi"]
+atlas = ExtResource("1_dxpih")
+region = Rect2(123, 0, 41, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymrta"]
+atlas = ExtResource("1_dxpih")
+region = Rect2(164, 0, 41, 50)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fy1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne3tx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blkwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymrta")
+}],
+"loop": false,
+"name": &"Slash",
+"speed": 15.0
+}]

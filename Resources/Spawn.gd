@@ -1,6 +1,7 @@
 extends Node
 class_name BaseSpawn
 
+var UnitArray;
 #Wave number: spawned units
 var WaveInformation : Dictionary[int, Dictionary] = {
 	#waves start at 1
@@ -9,6 +10,10 @@ var WaveInformation : Dictionary[int, Dictionary] = {
 	#Defaults to -1 if there exists no wave corresponding to wave number
 	1: {
 		"BaseEnemy": 5
+	},
+	
+	2: {
+		"BaseEnemy": 10,
 	},
 	
 	-1: {
@@ -24,9 +29,10 @@ func Spawn(_unitName : String, _location : Vector2, _parent : Variant) -> void:
 	NewUnit.Stats = load("res://Resources/UnitStats/" + _unitName + ".tres");
 	NewUnit.position = _location;
 	_parent.add_child(NewUnit);
+	UnitArray["Friendly" if NewUnit.Stats.IsFriendly else "NotFriendly"] += 1
 	
 	NewUnit.WeaponRingPlacementNode.AddWeaponSpritesToMarker(NewUnit.WeaponsNode.get_children(), 110);
-	NewUnit.AddBuff(load("res://Buffs/Burn.tscn"));
+	#NewUnit.AddBuff(load("res://Buffs/Burn.tscn"));
 	return;
 
 #TODO add weighed distributions

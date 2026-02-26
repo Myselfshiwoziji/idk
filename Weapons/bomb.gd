@@ -10,7 +10,14 @@ func UseWeapon(_useTime : float = LingerTime) -> void:
 	return;
 
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	super.UseWeapon(LingerTime);
-	HitboxPreview.visible = false
+	#HitboxPreview.visible = false
+	return;
+
+func OnHit(_hit) -> void:
+	super(_hit);
+	var BurnBuff : Node2D = load("res://Buffs/Burn.tscn").instantiate();
+	#BurnBuff.Stats.Strength = 0
+	_hit.AddBuff(BurnBuff);
 	return;

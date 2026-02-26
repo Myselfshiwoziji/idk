@@ -6,20 +6,40 @@ var SpawnFunctions = BaseSpawn.new();
 var PlayerSpawnpoint : Vector2 = Vector2.ZERO;
 var EnemySpawnpoints : Array[Vector2] = [];
 
-#var UnitsOnMap : Array[CharacterBody2D] = [];
+var CurrentWave: int = 1
+
+var UnitsOnMap : Dictionary[String, int] = {
+	"Friendly": 0,
+	"NotFriendly": 0,
+};
 
 @onready var Spawnpoints : Node2D = $Spawnpoints;
 func _ready() -> void:
+	SpawnFunctions.UnitArray = UnitsOnMap
 	ConnectSignals();
 	InitSpawnpoints();
 	SpawnFunctions.Spawn("BasePlayer", PlayerSpawnpoint, self)
 	
-	if (MapRule.SpawnEnemies): SpawnFunctions.SpawnWave(1, EnemySpawnpoints, self)
+	if (MapRule.SpawnEnemies): SpawnFunctions.SpawnWave(CurrentWave, EnemySpawnpoints, self)
 	
 	return;
 
 func ConnectSignals() -> void:
-	#EventBus.UnitKilled.connect(print);
+	EventBus.UnitKilled.connect(UnitIsKilled);
+	return;
+
+func UnitIsKilled(_unit):
+	var AreTheyFriendly = "Friendly" if _unit.Stats.IsFriendly else "NotFriendly";
+	UnitsOnMap[AreTheyFriendly] -= 1;
+	print(UnitsOnMap["NotFriendly"])
+	WaveSpawning()
+	return;
+
+func WaveSpawning() -> void:
+	if (!MapRule.SpawnEnemies): return;
+	if (UnitsOnMap["NotFriendly"] == 0): 
+		CurrentWave += 1;
+		SpawnFunctions.SpawnWave(CurrentWave, EnemySpawnpoints, self)
 	return;
 
 func InitSpawnpoints() -> void:

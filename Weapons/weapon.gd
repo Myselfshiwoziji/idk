@@ -9,6 +9,7 @@ class_name BaseWeapon
 @export var Animations : AnimatedSprite2D;
 @export var UseDisplacement : bool = true;
 @export var LingerTime : float = 0.3;
+@export var CanHitFriendly : bool = false;
 
 @export var HitboxPreview : Control;
 
@@ -55,11 +56,19 @@ func _process(delta: float) -> void:
 			return;
 	return;
 
+func DamageScaling() -> float:
+	return Damage + WeaponParent.Attack * Scaling;
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if (!area.get_parent().is_class("CharacterBody2D") || !CanHit): return;
 	var UnitHit : CharacterBody2D = area.get_parent();
-	if (UnitHit.Stats.IsFriendly == WeaponParent.Stats.IsFriendly): return;
-	UnitHit.TakeDamage(Damage + WeaponParent.Attack * Scaling);
+	if (UnitHit.Stats.IsFriendly == WeaponParent.Stats.IsFriendly && !CanHitFriendly): return;
+	OnHit(UnitHit)
+	return;
+
+func OnHit(_hit : CharacterBody2D) -> void:
+	#if (_hit.Stats.IsFriendly == WeaponParent.Stats.IsFriendly && !_canHitFriendly): return;
+	_hit.TakeDamage(DamageScaling());
 	return;
 
 func ActivateHitbox(_duration : float) -> void:
@@ -70,7 +79,7 @@ func ActivateHitbox(_duration : float) -> void:
 	await get_tree().create_timer(_duration).timeout;
 	Hitbox.monitoring = false;
 	CanHit = false;
-	await get_tree().create_timer(Cooldown - _duration if Cooldown > _duration else 0).timeout;
+	await get_tree().create_timer(Cooldown - _duration if Cooldown > _duration else 0.0).timeout;
 	CanUse = true;
 	return;
 
@@ -79,7 +88,9 @@ func UseWeapon(_duration: float = LingerTime) -> void:
 	ActivateHitbox(_duration);
 	Animations.visible = true;
 	Animations.play("Slash");
+	HitboxPreview.visible = true;
 	return;
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	Animations.visible = false;
+	HitboxPreview.visible = false;

@@ -87,21 +87,6 @@ animations = [{
 "speed": 40.0
 }]
 
-[sub_resource type="Animation" id="Animation_apj8b"]
-resource_name = "UseWeaponAnim"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 0.933333, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0.24524, 0.187846, 1), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_51l20"]
 length = 0.001
 tracks/0/type = "value"
@@ -117,6 +102,21 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_apj8b"]
+resource_name = "UseWeaponAnim"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.933333, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.24524, 0.187846, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dfu2r"]
 _data = {
 &"RESET": SubResource("Animation_51l20"),
@@ -130,9 +130,8 @@ Sprite = ExtResource("2_apj8b")
 Hitbox = NodePath("Area2D")
 BaseDamage = 80
 Animations = NodePath("Area2D/AnimatedSprite2D")
-UseDisplacement = false
 LingerTime = 1.0
-HitboxPreview = NodePath("HitboxPreview")
+HitboxPreview = NodePath("Area2D/HitboxPreview")
 MarkerSprite = NodePath("Sprite2D")
 metadata/_custom_type_script = "uid://bbksj2gc2tvcx"
 
@@ -155,26 +154,26 @@ animation = &"Slash"
 frame = 9
 frame_progress = 1.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_dfu2r")
-}
-speed_scale = 2.0
-
-[node name="HitboxPreview" type="Control" parent="."]
+[node name="HitboxPreview" type="Control" parent="Area2D"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Panel" type="Panel" parent="HitboxPreview"]
+[node name="Panel" type="Panel" parent="Area2D/HitboxPreview"]
 layout_mode = 0
 offset_left = -283.0
 offset_top = -287.0
 offset_right = 283.0
 offset_bottom = 287.0
 theme_override_styles/panel = ExtResource("4_51l20")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dfu2r")
+}
+speed_scale = 2.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="animation_finished" from="Area2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

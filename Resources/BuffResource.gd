@@ -5,3 +5,4 @@ class_name BuffStats
 @export_multiline var BuffDesc : String;
 @export var DefaultDuration : float;
 @export var Sprite : Texture2D;
+@export var Strength : float;
