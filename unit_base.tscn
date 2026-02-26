@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bsphfy8jicc5i" path="res://unit_base.gd" id="1_ju6fh"]
 [ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="2_svo2k"]
 [ext_resource type="PackedScene" uid="uid://brscbitql0gmg" path="res://UI/game_ui.tscn" id="3_svo2k"]
-[ext_resource type="PackedScene" uid="uid://dc5rqsj0htgg" path="res://Buffs/Burn.tscn" id="4_x60li"]
+[ext_resource type="Script" uid="uid://cf310tj2faicr" path="res://weapon_sprite_placements.gd" id="5_cj1x0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_svo2k"]
 radius = 310.026
@@ -14,10 +14,12 @@ radius = 52.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svo2k"]
 size = Vector2(127, 128)
 
-[node name="UnitBase" type="CharacterBody2D"]
+[node name="UnitBase" type="CharacterBody2D" node_paths=PackedStringArray("WeaponRingPlacementNode", "WeaponsNode")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_ju6fh")
+WeaponRingPlacementNode = NodePath("WeaponSpritePlacements")
+WeaponsNode = NodePath("Weapons")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_svo2k")
@@ -59,7 +61,8 @@ shape = SubResource("RectangleShape2D_svo2k")
 
 [node name="Buffs" type="Node2D" parent="."]
 
-[node name="BaseBuff" parent="Buffs" instance=ExtResource("4_x60li")]
+[node name="WeaponSpritePlacements" type="Node2D" parent="."]
+script = ExtResource("5_cj1x0")
 
 [connection signal="area_entered" from="DetectionRadius" to="." method="_on_detection_radius_area_entered"]
 [connection signal="area_exited" from="DetectionRadius" to="." method="_on_detection_radius_area_exited"]

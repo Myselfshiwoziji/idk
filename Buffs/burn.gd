@@ -7,8 +7,8 @@ func _ready() -> void:
 
 func ProcEffect() -> void:
 	#if (!Owner): Owner = get_parent().get_parent();
-	Owner.ChangeHealthValue(Owner.Health * 0.5, "Burn");
-	
+	#Owner.ChangeHealthValue(Owner.Health * 0.5, "Burn");
+	Owner.ChangeMaxHealthValue(Owner.MaxHealth * 1.5);
 	$Sprite2D.visible = true;
 	await get_tree().create_timer(0.1).timeout;
 	$Sprite2D.visible = false;
@@ -21,5 +21,5 @@ func ProcOnCondition(_new = 0, _reason = null) -> void:
 
 func ProcOnce() -> void:
 	if (!Owner): Owner = get_parent().get_parent();
-	Owner.HealthChanged.connect(ProcOnCondition);
+	#Owner.MaxHealthChanged.connect(ProcOnCondition);
 	return;

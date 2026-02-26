@@ -13,6 +13,7 @@ BaseDefense = 5
 BaseMoveSpeed = 300
 BaseMaxHealth = 100
 BufferRadius = 0
+BaseDamageRes = 0.0
 HeldWeapons = Array[PackedScene]([ExtResource("1_tcr5j")])
 Controlling = true
 IsFriendly = true

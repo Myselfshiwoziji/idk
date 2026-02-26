@@ -43,7 +43,7 @@ func ExpireBuff() -> void:
 
 func RemoveFromOwnerBuffIndex() -> void:
 	if (!Owner): return;
-	var BuffArray : Array[BaseBuff] = Owner.Buffs[self.name];
+	var BuffArray : Array = Owner.Buffs[self.Stats.BuffName];
 	var SpecificBuffIndex : int = BuffArray.find(self);
 	
 	if (SpecificBuffIndex == -1): push_warning("Cant find buff!"); return;

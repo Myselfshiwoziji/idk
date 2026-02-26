@@ -1,11 +1,16 @@
 extends CharacterBody2D
 signal HealthChanged(_value : float, _reason)
+signal MaxHealthChanged(_value : float, _reason)
+signal WeaponAdded(_newWeapon);
 
 @onready var DetectionRadius : Area2D = $DetectionRadius;
 @onready var Hitbox : CollisionShape2D = $Hitbox;
 @onready var Healthbar : ProgressBar = $Health;
 
 @export var Stats : BaseUnit;
+@export var WeaponRingPlacementNode : Node2D
+
+@export var WeaponsNode : Node2D;
 
 #@onready var DetectionRadius = $DetectionRadius;
 @onready var Camera = $Camera2D
@@ -45,27 +50,48 @@ func _ready() -> void:
 	return;
 
 func AddBuff(_buff : PackedScene) -> void:
-	var NewBuff : BaseBuff = _buff.instantiate();
+	var NewBuff := _buff.instantiate();
 	$Buffs.add_child(NewBuff);
 	NewBuff.Owner = self;
-	if (!Buffs[_buff.name]):
-		Buffs[_buff.name] = [NewBuff];
+	if (Buffs.keys().find(NewBuff.Stats.BuffName) == -1):
+		Buffs[NewBuff.Stats.BuffName] = [NewBuff];
 	else:
-		Buffs[_buff.name].append(NewBuff);
+		Buffs[NewBuff.Stats.BuffName].append(NewBuff);
 	return;
 
+func AttackFormula(_base, _mult, _flat) -> float:
+	var Final = _base  * _mult + _flat;
+	return Final;
+
+func DefenseFormula(_base, _mult, _flat) -> float:
+	var Final = _base  * _mult + _flat;
+	return Final;
+
+func MaxHealthFormula(_base, _mult, _flat) -> float:
+	var Final = _base  * _mult + _flat;
+	return Final;
+
+func MoveSpeedFormula(_base, _mult, _flat) -> float:
+	var Final = _base  * _mult + _flat;
+	return Final;
+
+func DamageResFormula(_res) -> float:
+	var Final = 1 - 1.3**(-_res);
+	return Final;
+
 func Init():
-	Attack = Stats.BaseAttack  * AttackMult + AttackFlat;
-	Defense = Stats.BaseDefense * DefenseMult + DefenseFlat;
-	MaxHealth = Stats.BaseMaxHealth * MaxHealthMult + MaxHealthFlat;
+	Attack = AttackFormula(Stats.BaseAttack, AttackMult, AttackFlat);
+	Defense = DefenseFormula(Stats.BaseDefense ,DefenseMult ,DefenseFlat);
+	MaxHealth = MaxHealthFormula(Stats.BaseMaxHealth , MaxHealthMult ,MaxHealthFlat);
 	Health = MaxHealth;
-	MoveSpeed = Stats.BaseMoveSpeed * MoveSpeedMult + MoveSpeedFlat;
+	MoveSpeed = MoveSpeedFormula(Stats.BaseMoveSpeed ,MoveSpeedMult,MoveSpeedFlat);
 	Healthbar.max_value = MaxHealth;
 	Healthbar.value = MaxHealth;
 	
 	#1 = 23.0%, 2 = 40.8%, 3 = 54.4%, 4 = 64.0%, etc.
 	DamageRes = Stats.BaseDamageRes;
-	CalculateUsedDamageRes();
+	UsedDamageRes = DamageResFormula(DamageRes);
+	#CalculateUsedDamageRes();
 	
 	$Sprite2D.texture = Stats.Sprite;
 	#for _weaponName : String in Stats.HeldWeapons:
@@ -89,15 +115,19 @@ func Init():
 		self.collision_mask = 1;
 	
 	HealthChanged.connect(HealthValueChanged);
+	MaxHealthChanged.connect(MaxHealthValueChanged);
 	return;
 
 func HealthValueChanged(_new, _reason) -> void:
 	Healthbar.value = Health;
 	return;
 
-func CalculateUsedDamageRes() -> void:
-	UsedDamageRes = 1 - 1.3**(-DamageRes);
-	return;
+func MaxHealthValueChanged(_new, _reason) -> void:
+	Healthbar.max_value = MaxHealth;
+
+#func CalculateUsedDamageRes() -> void:
+	#UsedDamageRes = 1 - 1.3**(-DamageRes);
+	#return;
 
 func AttackLogic() -> void:
 	if (len($Weapons.get_children()) == 0): return;
@@ -190,4 +220,17 @@ func ChangeHealthValue(_newValue : float, _reason : Variant = null) -> void:
 	if (_newValue == Health): return;
 	Health = _newValue;
 	HealthChanged.emit(_newValue, _reason);
+	return;
+
+func ChangeMaxHealthValue(_newValue : float, _reason : Variant = null) -> void:
+	if (_newValue == MaxHealth): return;
+	MaxHealth = _newValue;
+	MaxHealthChanged.emit(_newValue, _reason);
+	return;
+
+func AddNewWeapon(_weapon : PackedScene) -> void:
+	var NewWeapon := _weapon.instantiate();
+	WeaponsNode.add_child(NewWeapon);
+	WeaponRingPlacementNode.AddWeaponSpritesToMarker(WeaponsNode.get_children(), 110)
+	WeaponAdded.emit(NewWeapon);
 	return;

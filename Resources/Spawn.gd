@@ -24,6 +24,9 @@ func Spawn(_unitName : String, _location : Vector2, _parent : Variant) -> void:
 	NewUnit.Stats = load("res://Resources/UnitStats/" + _unitName + ".tres");
 	NewUnit.position = _location;
 	_parent.add_child(NewUnit);
+	
+	NewUnit.WeaponRingPlacementNode.AddWeaponSpritesToMarker(NewUnit.WeaponsNode.get_children(), 110);
+	NewUnit.AddBuff(load("res://Buffs/Burn.tscn"));
 	return;
 
 #TODO add weighed distributions
