@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=3 format=3 uid="uid://b83g3gui8gcph"]
+
+[ext_resource type="Texture2D" uid="uid://bmjhmhitfkj0u" path="res://Assets/black_candy.png" id="1_fofms"]
+[ext_resource type="Script" uid="uid://lb46kkpgi3kn" path="res://Resources/WeaponStats.gd" id="1_i6lpl"]
+
+[resource]
+script = ExtResource("1_i6lpl")
+Name = "Bomb"
+Desc = "deals [color=ac3731]80 damage [/color]  
+applies [color=d7692d]Burn [/color]for 5 seconds"
+Sprite = ExtResource("1_fofms")
+BaseDamage = 80
+Scaling = 0.0
+BaseCooldown = 5.0
+UseDisplacement = false
+LingerTime = 1.0
+CanHitFriendly = false
+metadata/_custom_type_script = "uid://lb46kkpgi3kn"

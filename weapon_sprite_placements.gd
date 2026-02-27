@@ -24,7 +24,7 @@ func AddWeaponSpritesToMarker(_weaponArray : Array[Node], _radius = RingRadius) 
 		
 		#var NewSprite : Sprite2D = Sprite2D.new();
 		var NewSprite = WeaponToPut.MarkerSprite;
-		NewSprite.texture = WeaponToPut.Sprite;
+		NewSprite.texture = WeaponToPut.Stats.Sprite;
 		#WeaponToPut.add_child(NewSprite);
 		NewSprite.position = Marker.position;
 		

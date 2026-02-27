@@ -46,7 +46,7 @@ func _ready() -> void:
 	if (Stats.Controlling):
 		DetectionRadius.monitoring = false;
 		Camera.enabled = true;
-		$Camera2D/GameUI.visible = true;
+		$Camera2D/WeaponMenu.visible = true;
 	return;
 
 func AddBuff(_buff : Variant) -> void:
@@ -132,7 +132,7 @@ func MaxHealthValueChanged(_new, _reason) -> void:
 func AttackLogic() -> void:
 	if (len($Weapons.get_children()) == 0): return;
 	for _weapon in $Weapons.get_children():
-		_weapon.UseWeapon(_weapon.LingerTime);
+		_weapon.UseWeapon(_weapon.Stats.LingerTime);
 		continue;
 	return;
 
@@ -210,10 +210,13 @@ func _input(event: InputEvent) -> void:
 	if (!Stats.Controlling): return;
 	if (Input.is_action_just_pressed("m1")):
 		for _weapon in $Weapons.get_children():
-			_weapon.UseWeapon(_weapon.LingerTime);
+			_weapon.UseWeapon(_weapon.Stats.LingerTime);
 			continue;
 		#$Weapons/Weapon.UseWeapon(0.3)
 		return;
+	
+	if (Input.is_action_just_pressed("OpenWeaponMenu")):
+		$Camera2D/WeaponMenu.visible = !$Camera2D/WeaponMenu.visible;
 	return;
 
 func ChangeHealthValue(_newValue : float, _reason : Variant = null) -> void:

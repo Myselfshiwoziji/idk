@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=3 format=3 uid="uid://2cbxgrou3h0o"]
+
+[ext_resource type="Script" uid="uid://lb46kkpgi3kn" path="res://Resources/WeaponStats.gd" id="1_5ktbo"]
+[ext_resource type="Texture2D" uid="uid://cfmp6k1e08hcs" path="res://Assets/Sword.png" id="1_n8gib"]
+
+[resource]
+script = ExtResource("1_5ktbo")
+Sprite = ExtResource("1_n8gib")
+BaseDamage = 30
+Scaling = 0.0
+BaseCooldown = 3.0
+UseDisplacement = true
+LingerTime = 0.3
+CanHitFriendly = false
+metadata/_custom_type_script = "uid://lb46kkpgi3kn"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://4mlfnlh7fg53"]
+[gd_scene load_steps=7 format=3 uid="uid://4mlfnlh7fg53"]
 
 [ext_resource type="Script" uid="uid://dgdmwcm2tj7fr" path="res://Weapons/sword.gd" id="1_hb5uo"]
+[ext_resource type="Resource" uid="uid://2cbxgrou3h0o" path="res://Resources/Weapons/Sword.tres" id="2_ggrom"]
 [ext_resource type="Texture2D" uid="uid://cfmp6k1e08hcs" path="res://Assets/Sword.png" id="2_rmn2s"]
 [ext_resource type="SpriteFrames" uid="uid://ditv1fbvaetpr" path="res://Assets/Animations/sworduse.tres" id="3_ggrom"]
 [ext_resource type="StyleBox" uid="uid://dl6iqv0s5kus3" path="res://UI/HitboxPreview/Circle.tres" id="4_0g1k0"]
@@ -12,10 +13,8 @@ height = 105.0
 [node name="BaseWeapon" type="Node2D" node_paths=PackedStringArray("Hitbox", "Animations", "HitboxPreview", "MarkerSprite")]
 scale = Vector2(2, 2)
 script = ExtResource("1_hb5uo")
-Sprite = ExtResource("2_rmn2s")
+Stats = ExtResource("2_ggrom")
 Hitbox = NodePath("Area2D")
-BaseDamage = 30
-BaseCooldown = 3.0
 Animations = NodePath("Area2D/AnimatedSprite2D")
 HitboxPreview = NodePath("Area2D/HitboxPreview")
 MarkerSprite = NodePath("Sprite2D")

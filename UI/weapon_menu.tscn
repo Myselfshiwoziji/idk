@@ -1,0 +1,170 @@
+[gd_scene load_steps=6 format=3 uid="uid://drj4kyrskuygw"]
+
+[ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="1_6r0hb"]
+[ext_resource type="Script" uid="uid://y58ehuj4y74k" path="res://UI/weapon_menu.gd" id="1_a77wj"]
+[ext_resource type="PackedScene" uid="uid://qpvuft5tysqf" path="res://Weapons/Bomb.tscn" id="2_td6nm"]
+
+[sub_resource type="Curve" id="Curve_i2ksa"]
+_data = [Vector2(0.529101, 0.264047), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_a77wj"]
+_data = [Vector2(0.746032, 0.195395), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[node name="WeaponMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a77wj")
+Weapon = ExtResource("2_td6nm")
+
+[node name="MainPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="WeaponScroller" type="ScrollContainer" parent="MainPanel"]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 648.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/WeaponScroller"]
+custom_minimum_size = Vector2(320, 648)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MainPanel/WeaponScroller/VBoxContainer"]
+custom_minimum_size = Vector2(320, 120)
+layout_mode = 2
+text = "WeaponName"
+
+[node name="WeaponDesc" type="ScrollContainer" parent="MainPanel"]
+layout_mode = 0
+offset_left = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Panel" type="Panel" parent="MainPanel/WeaponDesc"]
+custom_minimum_size = Vector2(832, 648)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="MainPanel/WeaponDesc/Panel"]
+position = Vector2(120, 144)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_6r0hb")
+
+[node name="Name" type="Label" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 0
+offset_left = 232.0
+offset_right = 744.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 18
+text = "Idk"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Current" type="Label" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 0
+offset_left = 744.0
+offset_right = 832.0
+offset_bottom = 64.0
+rotation = -0.000127328
+theme_override_font_sizes/font_size = 18
+text = "Current"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentDamage" type="Label" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 64.0
+offset_right = 832.0
+offset_bottom = 128.0
+rotation = -0.000127328
+theme_override_font_sizes/font_size = 18
+text = "/"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentScaling" type="Label" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 128.0
+offset_right = 832.0
+offset_bottom = 192.0
+rotation = -0.000127328
+theme_override_font_sizes/font_size = 18
+text = "/"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentCooldown" type="Label" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 192.0
+offset_right = 832.0
+offset_bottom = 256.0
+rotation = -0.000127328
+theme_override_font_sizes/font_size = 18
+text = "/"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BaseDamage" type="Label" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 64.0
+offset_right = 744.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 18
+text = "Damage : 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BaseScaling" type="Label" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 128.0
+offset_right = 744.0
+offset_bottom = 192.0
+theme_override_font_sizes/font_size = 18
+text = "Attack: *1x, Max Health: +0.1x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BaseCooldown" type="Label" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 192.0
+offset_right = 744.0
+offset_bottom = 256.0
+theme_override_font_sizes/font_size = 18
+text = "Cooldown: 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BaseCurrentLine" type="Line2D" parent="MainPanel/WeaponDesc/Panel"]
+position = Vector2(367, 0)
+scale = Vector2(0.5, 1)
+points = PackedVector2Array(744, 0, 744, 256)
+width_curve = SubResource("Curve_i2ksa")
+default_color = Color(0.222689, 0.267275, 0.417622, 1)
+
+[node name="DescLine" type="Line2D" parent="MainPanel/WeaponDesc/Panel"]
+points = PackedVector2Array(0, 256, 832, 256)
+width_curve = SubResource("Curve_a77wj")
+default_color = Color(0.0995968, 0.130876, 0.300365, 1)
+
+[node name="WeaponLabel" type="RichTextLabel" parent="MainPanel/WeaponDesc/Panel"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 272.0
+offset_right = 832.0
+offset_bottom = 648.0
+bbcode_enabled = true
+text = "click one to do (Damage * 0.5) damage to all enemies within (Radius).
+
+Click twice to [color=32FF82]destroy universe.[/color]"

@@ -1,15 +1,17 @@
 extends Node2D
 class_name BaseWeapon
 
-@export var Sprite : Texture2D;
+@export var Stats : WeaponStats;
+
+#@export var Sprite : Texture2D;
 @export var Hitbox : Area2D;
-@export var BaseDamage : int;
-@export var Scaling : float = 0;
-@export var BaseCooldown : float = 5;
+#@export var BaseDamage : int;
+#@export var Scaling : float = 0;
+#@export var BaseCooldown : float = 5;
 @export var Animations : AnimatedSprite2D;
-@export var UseDisplacement : bool = true;
-@export var LingerTime : float = 0.3;
-@export var CanHitFriendly : bool = false;
+#@export var UseDisplacement : bool = true;
+#@export var LingerTime : float = 0.3;
+#@export var CanHitFriendly : bool = false;
 
 @export var HitboxPreview : Control;
 
@@ -26,13 +28,13 @@ var TempMultipliers : Array[String] = [];
 
 func _ready():
 	HitboxOffset = Hitbox.position;
-	Damage = BaseDamage;
+	Damage = Stats.BaseDamage;
 	CanUse = true;
-	Cooldown = BaseCooldown;
+	Cooldown = Stats.BaseCooldown;
 	return;
 
 func ConfigureOffset(_direction: Vector2) -> void:
-	if (!UseDisplacement): return;
+	if (!Stats.UseDisplacement): return;
 	#incase its not normalised already
 	_direction = _direction.normalized();
 	var Magnitude = HitboxOffset.length();
@@ -57,12 +59,12 @@ func _process(delta: float) -> void:
 	return;
 
 func DamageScaling() -> float:
-	return Damage + WeaponParent.Attack * Scaling;
+	return Damage + WeaponParent.Attack * Stats.Scaling;
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if (!area.get_parent().is_class("CharacterBody2D") || !CanHit): return;
 	var UnitHit : CharacterBody2D = area.get_parent();
-	if (UnitHit.Stats.IsFriendly == WeaponParent.Stats.IsFriendly && !CanHitFriendly): return;
+	if (UnitHit.Stats.IsFriendly == WeaponParent.Stats.IsFriendly && !Stats.CanHitFriendly): return;
 	OnHit(UnitHit)
 	return;
 
@@ -83,7 +85,7 @@ func ActivateHitbox(_duration : float) -> void:
 	CanUse = true;
 	return;
 
-func UseWeapon(_duration: float = LingerTime) -> void:
+func UseWeapon(_duration: float = Stats.LingerTime) -> void:
 	if (!CanUse): return;
 	ActivateHitbox(_duration);
 	Animations.visible = true;
