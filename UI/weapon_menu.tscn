@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://drj4kyrskuygw"]
+[gd_scene load_steps=8 format=3 uid="uid://drj4kyrskuygw"]
 
 [ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="1_6r0hb"]
 [ext_resource type="Script" uid="uid://y58ehuj4y74k" path="res://UI/weapon_menu.gd" id="1_a77wj"]
 [ext_resource type="PackedScene" uid="uid://qpvuft5tysqf" path="res://Weapons/Bomb.tscn" id="2_td6nm"]
+[ext_resource type="RichTextEffect" uid="uid://bybmns4jvwa1h" path="res://UI/BBCode/ColourDamage.tres" id="4_td6nm"]
+[ext_resource type="RichTextEffect" uid="uid://ba8ii30tv4evn" path="res://UI/BBCode/ColourBurn.tres" id="5_w58ss"]
 
 [sub_resource type="Curve" id="Curve_i2ksa"]
 _data = [Vector2(0.529101, 0.264047), 0.0, 0.0, 0, 0]
@@ -165,4 +167,5 @@ offset_bottom = 648.0
 bbcode_enabled = true
 text = "click one to do (Damage * 0.5) damage to all enemies within (Radius).
 
-Click twice to [color=32FF82]destroy universe.[/color]"
+Click twice to [ColourDamage]destroy universe.[/ColourDamage]"
+custom_effects = [ExtResource("4_td6nm"), ExtResource("5_w58ss")]

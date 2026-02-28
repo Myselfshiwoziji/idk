@@ -6,13 +6,13 @@
 [resource]
 script = ExtResource("1_i6lpl")
 Name = "Bomb"
-Desc = "deals [color=ac3731]80 damage [/color]  
-applies [color=d7692d]Burn [/color]for 5 seconds"
+Desc = "deals [Damage]80 damage [/Damage]  
+applies [Burn]Burn [/Burn]for 5 seconds"
 Sprite = ExtResource("1_fofms")
 BaseDamage = 80
 Scaling = 0.0
 BaseCooldown = 5.0
 UseDisplacement = false
 LingerTime = 1.0
-CanHitFriendly = false
+CanHitFriendly = true
 metadata/_custom_type_script = "uid://lb46kkpgi3kn"

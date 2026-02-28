@@ -49,7 +49,7 @@ func _ready() -> void:
 	if (Stats.Controlling):
 		DetectionRadius.monitoring = false;
 		Camera.enabled = true;
-		$Camera2D/WeaponMenu.visible = true;
+		$Camera2D/WeaponMenu.visible = false;
 	return;
 
 func AddBuff(_buff : Variant) -> void:
@@ -81,6 +81,17 @@ func MoveSpeedFormula(_base, _mult, _flat) -> float:
 func DamageResFormula(_res) -> float:
 	var Final = 1 - 1.3**(-_res);
 	return Final;
+
+func Recalculate() -> void:
+	Attack = AttackFormula(Stats.BaseAttack, AttackMult, AttackFlat);
+	Defense = DefenseFormula(Stats.BaseDefense ,DefenseMult ,DefenseFlat);
+	MaxHealth = MaxHealthFormula(Stats.BaseMaxHealth , MaxHealthMult ,MaxHealthFlat);
+	MoveSpeed = MoveSpeedFormula(Stats.BaseMoveSpeed ,MoveSpeedMult,MoveSpeedFlat);
+	
+	#1 = 23.0%, 2 = 40.8%, 3 = 54.4%, 4 = 64.0%, etc.
+	DamageRes = Stats.BaseDamageRes;
+	UsedDamageRes = DamageResFormula(DamageRes);
+	return;
 
 func Init():
 	Attack = AttackFormula(Stats.BaseAttack, AttackMult, AttackFlat);
@@ -143,6 +154,7 @@ func AttackLogic() -> void:
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
+	#Recalculate()
 	if (Stats.Controlling): 
 		Controllable();
 		#DynamicCamera();

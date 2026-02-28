@@ -1,0 +1,6 @@
+[gd_resource type="RichTextEffect" load_steps=2 format=3 uid="uid://ba8ii30tv4evn"]
+
+[ext_resource type="Script" uid="uid://bxjcjwftxv55r" path="res://UI/BBCode/ColouredBurn.gd" id="1_cavn0"]
+
+[resource]
+script = ExtResource("1_cavn0")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BuffStats" load_steps=2 format=3 uid="uid://2tdfhs2c4br6"]
+
+[ext_resource type="Script" uid="uid://cnunyt0rdus3h" path="res://Resources/BuffResource.gd" id="1_q5lyx"]
+
+[resource]
+script = ExtResource("1_q5lyx")
+BuffName = "Tired"
+BuffDesc = "MoveSpeed is halved for 5 seconds."
+DefaultDuration = 5.0
+Strength = 1.0
+metadata/_custom_type_script = "uid://cnunyt0rdus3h"

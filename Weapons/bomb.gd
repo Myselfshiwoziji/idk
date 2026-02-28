@@ -18,6 +18,7 @@ func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 func OnHit(_hit) -> void:
 	super(_hit);
 	var BurnBuff : Node2D = load("res://Buffs/Burn.tscn").instantiate();
+	var SlowBuff : Node2D = load("res://Buffs/Tired.tscn").instantiate();
 	#BurnBuff.Stats.Strength = 0
-	_hit.AddBuff(BurnBuff);
+	_hit.AddBuff(SlowBuff);
 	return;

@@ -25,6 +25,7 @@ func _ready() -> void:
 	#InitPanel()
 	
 	#AddWeaponButton()
+	#self.visible = false;
 	return;
 
 func AddWeaponButton(_weapon : Node2D) -> void:
