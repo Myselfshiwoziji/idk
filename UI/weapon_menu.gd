@@ -5,6 +5,7 @@ extends Control
 @export var Weapon : PackedScene;
 
 @export var WeaponDescriptionPanel : Panel
+@export var VBox : VBoxContainer;
 
 @onready var WeaponSprite = $MainPanel/WeaponDesc/Panel/Sprite2D
 @onready var NameLabel = $MainPanel/WeaponDesc/Panel/Name
@@ -16,11 +17,23 @@ extends Control
 @onready var BScaling = $MainPanel/WeaponDesc/Panel/BaseScaling;
 @onready var WeaponLabel = $MainPanel/WeaponDesc/Panel/WeaponLabel;
 
+@onready var NewButtonPacked = preload("res://UI/IndividualButton.tscn");
 var WeaponNode
 
 func _ready() -> void:
-	WeaponNode = Weapon.instantiate();
-	InitPanel()
+	#WeaponNode = Weapon.instantiate();
+	#InitPanel()
+	
+	#AddWeaponButton()
+	return;
+
+func AddWeaponButton(_weapon : Node2D) -> void:
+	var NewButtonNode = NewButtonPacked.instantiate();
+	VBox.add_child(NewButtonNode);
+	NewButtonNode.ChangeView.connect(ButtonPressed)
+	
+	NewButtonNode.ResponsibleWeapon = _weapon;
+	NewButtonNode.Init();
 	return;
 
 func InitPanel() -> void:
@@ -34,4 +47,11 @@ func InitPanel() -> void:
 	BScaling.text = "Scaling: " + str(WeaponStat.Scaling);
 	WeaponLabel.text = WeaponStat.Desc
 	if (!ControlledUnit): return;
+	return;
+
+
+func ButtonPressed(_stats: Variant) -> void:
+	#print(_stats);
+	WeaponNode = _stats;
+	InitPanel()
 	return;

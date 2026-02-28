@@ -32,6 +32,10 @@ func Spawn(_unitName : String, _location : Vector2, _parent : Variant) -> void:
 	UnitArray["Friendly" if NewUnit.Stats.IsFriendly else "NotFriendly"] += 1
 	
 	NewUnit.WeaponRingPlacementNode.AddWeaponSpritesToMarker(NewUnit.WeaponsNode.get_children(), 110);
+	
+	for _weapon in NewUnit.WeaponsNode.get_children():
+		NewUnit.WeaponMenu.AddWeaponButton(_weapon);
+		continue;
 	#NewUnit.AddBuff(load("res://Buffs/Burn.tscn"));
 	return;
 

@@ -11,6 +11,7 @@ signal WeaponAdded(_newWeapon);
 @export var WeaponRingPlacementNode : Node2D
 
 @export var WeaponsNode : Node2D;
+@export var WeaponMenu : Control;
 
 #@onready var DetectionRadius = $DetectionRadius;
 @onready var Camera = $Camera2D
@@ -40,6 +41,8 @@ var Chasing : bool = false;
 var UnitsInRadius : Array[CharacterBody2D];
 
 var Buffs : Dictionary[String, Array] = {}
+
+var InMenu : bool = false
 
 func _ready() -> void:
 	Init();
@@ -116,6 +119,8 @@ func Init():
 	
 	HealthChanged.connect(HealthValueChanged);
 	MaxHealthChanged.connect(MaxHealthValueChanged);
+	
+	$Camera2D/WeaponMenu.ControlledUnit = self;
 	return;
 
 func HealthValueChanged(_new, _reason) -> void:
@@ -208,7 +213,7 @@ func _on_detection_radius_area_exited(area: Area2D) -> void:
 
 func _input(event: InputEvent) -> void:
 	if (!Stats.Controlling): return;
-	if (Input.is_action_just_pressed("m1")):
+	if (Input.is_action_just_pressed("m1") && !InMenu):
 		for _weapon in $Weapons.get_children():
 			_weapon.UseWeapon(_weapon.Stats.LingerTime);
 			continue;
@@ -217,6 +222,7 @@ func _input(event: InputEvent) -> void:
 	
 	if (Input.is_action_just_pressed("OpenWeaponMenu")):
 		$Camera2D/WeaponMenu.visible = !$Camera2D/WeaponMenu.visible;
+		InMenu = $Camera2D/WeaponMenu.visible
 	return;
 
 func ChangeHealthValue(_newValue : float, _reason : Variant = null) -> void:

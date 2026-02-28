@@ -5,6 +5,8 @@
 
 [resource]
 script = ExtResource("1_5ktbo")
+Name = "Basic sword"
+Desc = "Does 10 damage"
 Sprite = ExtResource("1_n8gib")
 BaseDamage = 30
 Scaling = 0.0

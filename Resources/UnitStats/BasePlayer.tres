@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="BaseUnit" load_steps=4 format=3 uid="uid://ckqyi7alddoeu"]
+[gd_resource type="Resource" script_class="BaseUnit" load_steps=5 format=3 uid="uid://ckqyi7alddoeu"]
 
 [ext_resource type="Texture2D" uid="uid://dag5uyjkhqqp0" path="res://icon.svg" id="1_73nfp"]
 [ext_resource type="PackedScene" uid="uid://qpvuft5tysqf" path="res://Weapons/Bomb.tscn" id="1_tcr5j"]
+[ext_resource type="PackedScene" uid="uid://4mlfnlh7fg53" path="res://Weapons/Sword.tscn" id="2_6hsve"]
 [ext_resource type="Script" uid="uid://bjwnkc8xw1f1w" path="res://Resources/Unit.gd" id="2_tcr5j"]
 
 [resource]
@@ -14,7 +15,7 @@ BaseMoveSpeed = 300
 BaseMaxHealth = 5000
 BufferRadius = 0
 BaseDamageRes = 0.0
-HeldWeapons = Array[PackedScene]([ExtResource("1_tcr5j")])
+HeldWeapons = Array[PackedScene]([ExtResource("1_tcr5j"), ExtResource("2_6hsve")])
 Controlling = true
 IsFriendly = true
 CanAttack = false

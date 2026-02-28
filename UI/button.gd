@@ -1,19 +1,13 @@
 extends Button
+signal ChangeView(_stats);
 
-#Temp
-@export var ControlledUnit : CharacterBody2D;
-@export var Weapon : PackedScene;
+var ResponsibleWeapon;
 
-@export var WeaponDescriptionPanel : Panel
 
-var WeaponNode
-
-func _ready() -> void:
-	WeaponNode = Weapon.instantiate();
-	InitPanel()
+func _on_pressed() -> void:
+	if (!ResponsibleWeapon): return;
+	ChangeView.emit(ResponsibleWeapon);
 	return;
 
-func InitPanel() -> void:
-	if (!WeaponNode): return;
-	var WeaponStat : WeaponStats = WeaponNode.Stats;
-	WeaponDescriptionPanel.get_child(WeaponDescriptionPanel.get_children().find("Name")).text = "Hello";
+func Init() -> void:
+	self.text = ResponsibleWeapon.Stats.Name;

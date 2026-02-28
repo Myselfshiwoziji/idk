@@ -14,12 +14,13 @@ radius = 52.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svo2k"]
 size = Vector2(127, 128)
 
-[node name="UnitBase" type="CharacterBody2D" node_paths=PackedStringArray("WeaponRingPlacementNode", "WeaponsNode")]
+[node name="UnitBase" type="CharacterBody2D" node_paths=PackedStringArray("WeaponRingPlacementNode", "WeaponsNode", "WeaponMenu")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_ju6fh")
 WeaponRingPlacementNode = NodePath("WeaponSpritePlacements")
 WeaponsNode = NodePath("Weapons")
+WeaponMenu = NodePath("Camera2D/WeaponMenu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_svo2k")
