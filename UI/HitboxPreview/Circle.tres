@@ -3,7 +3,7 @@
 [resource]
 resource_local_to_scene = true
 bg_color = Color(0.86, 0.47472, 0.4472, 0.25098)
-corner_radius_top_left = 300
-corner_radius_top_right = 300
-corner_radius_bottom_right = 300
-corner_radius_bottom_left = 300
+corner_radius_top_left = 270
+corner_radius_top_right = 270
+corner_radius_bottom_right = 270
+corner_radius_bottom_left = 270

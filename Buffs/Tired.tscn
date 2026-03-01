@@ -5,6 +5,6 @@
 
 [node name="BaseBuff" type="Node2D"]
 script = ExtResource("1_e8frn")
-ColourMod = Color(0.568973, 0.568973, 0.568973, 1)
+ColourMod = Color(0.210507, 0.210507, 0.210507, 1)
 Stats = ExtResource("2_t7vc1")
 metadata/_custom_type_script = "uid://cm2ecgw1me5ac"

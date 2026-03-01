@@ -88,11 +88,13 @@ func ActivateHitbox(_duration : float) -> void:
 func UseWeapon(_duration: float = Stats.LingerTime) -> void:
 	if (!CanUse): return;
 	ActivateHitbox(_duration);
-	Animations.visible = true;
-	Animations.play("Slash");
+	if (Animations):
+		Animations.visible = true;
+		Animations.play("Slash");
 	HitboxPreview.visible = true;
 	return;
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	Animations.visible = false;
+	if (Animations):
+		Animations.visible = false;
 	HitboxPreview.visible = false;

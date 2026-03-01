@@ -14,5 +14,5 @@ Scaling = 0.0
 BaseCooldown = 5.0
 UseDisplacement = false
 LingerTime = 1.0
-CanHitFriendly = true
+CanHitFriendly = false
 metadata/_custom_type_script = "uid://lb46kkpgi3kn"
