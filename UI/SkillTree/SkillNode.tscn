@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://lr23h0uug70n"]
+
+[ext_resource type="Script" uid="uid://cgs3dvtpwy4ub" path="res://UI/SkillTree/skill_node.gd" id="1_3e5x3"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("ControlPanel", "NameLabel", "DescLabel", "CostLabel", "Progress", "UpgradeButton")]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 3
+anchor_right = 0.222
+anchor_bottom = 0.395
+offset_right = 0.255981
+offset_bottom = 0.0399933
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(128, 128)
+script = ExtResource("1_3e5x3")
+ControlPanel = NodePath("Panel")
+NameLabel = NodePath("Panel/NameLabel")
+DescLabel = NodePath("Panel/DescriptionLabel")
+CostLabel = NodePath("Panel/CostLabel")
+Progress = NodePath("Panel/ProgressBar")
+UpgradeButton = NodePath("Button")
+UpgradeName = "HelloWorld"
+UpgradeDesc = "nothing"
+UpgradeCostBase = 10.0
+MaxUpgradeBase = 10
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="NameLabel" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 41.0
+text = "SkillName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 256.0
+offset_bottom = 184.0
+text = "Desc"
+horizontal_alignment = 1
+
+[node name="CostLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_top = 184.0
+offset_right = 256.0
+offset_bottom = 224.0
+text = "Cost: "
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel"]
+layout_mode = 0
+offset_top = 224.0
+offset_right = 256.0
+offset_bottom = 251.0
+max_value = 10.0
+step = 1.0
+show_percentage = false
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0.145098)
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0)
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
