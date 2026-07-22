@@ -1,14 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://lr23h0uug70n"]
+[gd_scene format=3 uid="uid://lr23h0uug70n"]
 
 [ext_resource type="Script" uid="uid://cgs3dvtpwy4ub" path="res://UI/SkillTree/skill_node.gd" id="1_3e5x3"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("ControlPanel", "NameLabel", "DescLabel", "CostLabel", "Progress", "UpgradeButton")]
+[node name="Control" type="Control" unique_id=1528088977 node_paths=PackedStringArray("ControlPanel", "NameLabel", "DescLabel", "CostLabel", "Progress", "UpgradeButton")]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 3
-anchor_right = 0.222
-anchor_bottom = 0.395
-offset_right = 0.255981
-offset_bottom = 0.0399933
+anchor_right = 0.074
+anchor_bottom = 0.115
+offset_right = 0.255997
+offset_bottom = -0.910004
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(128, 128)
@@ -24,13 +24,15 @@ UpgradeDesc = "nothing"
 UpgradeCostBase = 10.0
 MaxUpgradeBase = 10
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1846661246]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="NameLabel" type="Label" parent="Panel"]
+[node name="NameLabel" type="Label" parent="Panel" unique_id=2139394034]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 0
 offset_right = 256.0
@@ -39,7 +41,7 @@ text = "SkillName"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DescriptionLabel" type="Label" parent="Panel"]
+[node name="DescriptionLabel" type="Label" parent="Panel" unique_id=84620399]
 layout_mode = 0
 offset_top = 40.0
 offset_right = 256.0
@@ -47,7 +49,7 @@ offset_bottom = 184.0
 text = "Desc"
 horizontal_alignment = 1
 
-[node name="CostLabel" type="Label" parent="Panel"]
+[node name="CostLabel" type="Label" parent="Panel" unique_id=1172214564]
 layout_mode = 0
 offset_top = 184.0
 offset_right = 256.0
@@ -55,7 +57,7 @@ offset_bottom = 224.0
 text = "Cost: "
 vertical_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Panel"]
+[node name="ProgressBar" type="ProgressBar" parent="Panel" unique_id=381599523]
 layout_mode = 0
 offset_top = 224.0
 offset_right = 256.0
@@ -64,11 +66,13 @@ max_value = 10.0
 step = 1.0
 show_percentage = false
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=381088960]
 self_modulate = Color(1, 1, 1, 0.145098)
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 256.0
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 0)
 
+[connection signal="mouse_entered" from="Button" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

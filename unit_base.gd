@@ -1,4 +1,6 @@
 extends CharacterBody2D
+class_name CharacterBase
+
 signal HealthChanged(_value : float, _reason)
 signal MaxHealthChanged(_value : float, _reason)
 signal WeaponAdded(_newWeapon);
@@ -12,6 +14,8 @@ signal WeaponAdded(_newWeapon);
 
 @export var WeaponsNode : Node2D;
 @export var WeaponMenu : Control;
+@export var GameUI : Control;
+
 
 #@onready var DetectionRadius = $DetectionRadius;
 @onready var Camera = $Camera2D
@@ -43,6 +47,8 @@ var UnitsInRadius : Array[CharacterBody2D];
 var Buffs : Dictionary[String, Array] = {}
 
 var InMenu : bool = false
+
+var CurrentWeapon : int = 0;
 
 func _ready() -> void:
 	Init();
@@ -119,6 +125,7 @@ func Init():
 		NewWeapon.WeaponParent = self
 		NewWeapon.HitboxOffset = Vector2(0,-Stats.WeaponDisplacement);
 		continue;
+	SwitchToNextWeapon(0);
 	
 	#Collision layers
 	if (Stats.Controlling):
@@ -148,8 +155,34 @@ func MaxHealthValueChanged(_new, _reason) -> void:
 func AttackLogic() -> void:
 	if (len($Weapons.get_children()) == 0): return;
 	for _weapon in $Weapons.get_children():
+		if (!_weapon.CanUse): return;
 		_weapon.UseWeapon(_weapon.Stats.LingerTime);
+		#GameUI.MaxCooldown = _weapon.Cooldown;
+		#GameUI.CurrentCooldown = _weapon.Cooldown;
 		continue;
+	return;
+
+func CycleWeapon() -> void:
+	var Weapon = $Weapons.get_children()[CurrentWeapon];
+	if (!Weapon.CanUse): return;
+	
+	Weapon.UseWeapon(Weapon.Stats.LingerTime);
+	
+	GameUI.AddNewBar(Weapon.Stats.Name, Weapon.Cooldown);
+	#GameUI.MaxCooldown = Weapon.Cooldown;
+	#GameUI.CurrentCooldown = Weapon.Cooldown;
+	return;
+
+func SwitchToNextWeapon(_inc = 1) -> void:
+	$Weapons.get_children()[CurrentWeapon].HitboxPreview.visible = false;
+	$Weapons.get_children()[CurrentWeapon].CurrentlySelected = false;
+	
+	CurrentWeapon = (CurrentWeapon + _inc)%(len($Weapons.get_children()));
+	
+	GameUI.WeaponLabel.text = "Current Weapon: " + $Weapons.get_children()[CurrentWeapon].Stats.Name
+	
+	$Weapons.get_children()[CurrentWeapon].HitboxPreview.visible = true if $Weapons.get_children()[CurrentWeapon].CanUse else false;
+	$Weapons.get_children()[CurrentWeapon].CurrentlySelected = true;
 	return;
 
 func _physics_process(delta: float) -> void:
@@ -226,15 +259,21 @@ func _on_detection_radius_area_exited(area: Area2D) -> void:
 func _input(event: InputEvent) -> void:
 	if (!Stats.Controlling): return;
 	if (Input.is_action_just_pressed("m1") && !InMenu):
-		for _weapon in $Weapons.get_children():
-			_weapon.UseWeapon(_weapon.Stats.LingerTime);
-			continue;
-		#$Weapons/Weapon.UseWeapon(0.3)
+		#for _weapon in $Weapons.get_children():
+			#_weapon.UseWeapon(_weapon.Stats.LingerTime);
+			#continue;
+		CycleWeapon();
 		return;
 	
 	if (Input.is_action_just_pressed("OpenWeaponMenu")):
 		$Camera2D/WeaponMenu.visible = !$Camera2D/WeaponMenu.visible;
-		InMenu = $Camera2D/WeaponMenu.visible
+		InMenu = $Camera2D/WeaponMenu.visible;
+	
+	if (Input.is_action_just_pressed("SwitchToNextWeapon")):
+		SwitchToNextWeapon();
+		
+	if (Input.is_action_just_pressed("SwitchToPreviousWeapon")):
+		SwitchToNextWeapon(-1);
 	return;
 
 func ChangeHealthValue(_newValue : float, _reason : Variant = null) -> void:

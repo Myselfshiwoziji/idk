@@ -26,6 +26,8 @@ var TempMultipliers : Array[String] = [];
 
 @export var MarkerSprite : Sprite2D;
 
+var CurrentlySelected : bool = false;
+
 func _ready():
 	HitboxOffset = Hitbox.position;
 	Damage = Stats.BaseDamage;
@@ -80,9 +82,14 @@ func ActivateHitbox(_duration : float) -> void:
 	
 	await get_tree().create_timer(_duration).timeout;
 	Hitbox.monitoring = false;
+	
+	#Cooldown
 	CanHit = false;
 	await get_tree().create_timer(Cooldown - _duration if Cooldown > _duration else 0.0).timeout;
 	CanUse = true;
+	
+
+	if (CurrentlySelected): HitboxPreview.visible = true;
 	return;
 
 func UseWeapon(_duration: float = Stats.LingerTime) -> void:

@@ -1,0 +1,136 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgd70kc83q4cp"]
+
+[ext_resource type="Script" uid="uid://cjiflwdagmjou" path="res://UI/gambling.gd" id="1_3hge7"]
+[ext_resource type="Script" uid="uid://dg2123e62bcbj" path="res://Random/RandomModule.gd" id="2_i267a"]
+
+[sub_resource type="Resource" id="Resource_n56de"]
+script = ExtResource("2_i267a")
+RarityTable = {
+"Common": 10,
+"Legendary": 1,
+"Rare": 4
+}
+LootTable = {
+"Common": {
+"gold": 1
+},
+"Legendary": {
+"gold": 1000
+},
+"Rare": {
+"gold": 100
+}
+}
+metadata/_custom_type_script = "uid://dg2123e62bcbj"
+
+[node name="Gambling" type="Control" node_paths=PackedStringArray("VBox", "TheButton", "TheLabel", "RollHistoryLabel", "AmountLabel")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3hge7")
+Rando = SubResource("Resource_n56de")
+VBox = NodePath("OddsPanel/ScrollContainer/VBoxContainer")
+TheButton = NodePath("BaseButtonAndLabel/Button")
+TheLabel = NodePath("BaseButtonAndLabel/Label")
+RollHistoryLabel = NodePath("ScrollContainer/RollHistory")
+AmountLabel = NodePath("TextEdit")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1541.0
+offset_bottom = 201.0
+theme_override_font_sizes/font_size = 60
+text = "Gold:"
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_top = 201.0
+offset_right = 1541.0
+offset_bottom = 402.0
+theme_override_font_sizes/font_size = 60
+text = "Level: "
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 800.0
+offset_right = 1277.0
+offset_bottom = 1157.0
+theme_override_font_sizes/font_size = 80
+text = "Go gambling"
+
+[node name="OddsPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 1728.0
+offset_top = 320.0
+offset_right = 3168.0
+offset_bottom = 1800.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OddsPanel"]
+layout_mode = 0
+offset_right = 1440.0
+offset_bottom = 1480.0
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OddsPanel/ScrollContainer"]
+custom_minimum_size = Vector2(1440, 0)
+layout_mode = 2
+
+[node name="BaseButtonAndLabel" type="Node" parent="."]
+
+[node name="Button" type="Button" parent="BaseButtonAndLabel"]
+visible = false
+custom_minimum_size = Vector2(0, 256)
+offset_left = 1728.0
+offset_top = 320.0
+offset_right = 3168.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 40
+
+[node name="Label" type="Label" parent="BaseButtonAndLabel"]
+visible = false
+custom_minimum_size = Vector2(0, 128)
+offset_left = 1728.0
+offset_top = 580.0
+offset_right = 3168.0
+offset_bottom = 708.0
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 1280.0
+offset_right = 1280.0
+offset_bottom = 1880.0
+horizontal_scroll_mode = 0
+
+[node name="RollHistory" type="Label" parent="ScrollContainer"]
+custom_minimum_size = Vector2(768, 128)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 1216.0
+offset_right = 1280.0
+offset_bottom = 1280.0
+theme_override_font_sizes/font_size = 45
+text = "Roll history"
+horizontal_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 1304.0
+offset_top = 1040.0
+offset_right = 1416.0
+offset_bottom = 1152.0
+theme_override_font_sizes/font_size = 40
+placeholder_text = "1"
+emoji_menu_enabled = false
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjnlnpdsf52ja"]
+
+[ext_resource type="Script" uid="uid://0am1x4scdkwq" path="res://Weapons/Projectiles/base_projectile.gd" id="1_nc8h4"]
+[ext_resource type="Texture2D" uid="uid://b3uphkgw0ihra" path="res://Assets/Bullet.png" id="2_pyf8h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3grml"]
+
+[node name="BaseProjectile" type="Node2D" node_paths=PackedStringArray("Hitbox")]
+visible = false
+script = ExtResource("1_nc8h4")
+Hitbox = NodePath("Hitbox")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pyf8h")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, 1.19209e-07)
+scale = Vector2(1.07277, 1.23544)
+shape = SubResource("CapsuleShape2D_3grml")

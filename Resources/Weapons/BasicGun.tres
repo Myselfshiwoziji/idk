@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=3 format=3 uid="uid://b2pr8s8uccjrg"]
+
+[ext_resource type="Texture2D" uid="uid://cevncv215a1bw" path="res://Assets/GunBasic.png" id="1_3scbh"]
+[ext_resource type="Script" uid="uid://lb46kkpgi3kn" path="res://Resources/WeaponStats.gd" id="1_j72ni"]
+
+[resource]
+script = ExtResource("1_j72ni")
+Name = "Glock"
+Desc = "projectile test"
+Sprite = ExtResource("1_3scbh")
+BaseDamage = 0
+Scaling = 0.0
+BaseCooldown = 5.0
+UseDisplacement = true
+LingerTime = 0.3
+CanHitFriendly = false
+metadata/_custom_type_script = "uid://lb46kkpgi3kn"

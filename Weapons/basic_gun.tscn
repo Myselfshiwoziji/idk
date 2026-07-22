@@ -1,0 +1,148 @@
+[gd_scene load_steps=18 format=3 uid="uid://brs8eaofk6jsq"]
+
+[ext_resource type="Script" uid="uid://coraantoqtlqv" path="res://Weapons/basic_gun.gd" id="1_g1he5"]
+[ext_resource type="Texture2D" uid="uid://cevncv215a1bw" path="res://Assets/GunBasic.png" id="2_4qaua"]
+[ext_resource type="Texture2D" uid="uid://c4poap3vkhwmf" path="res://Assets/ExplosionSprite.png" id="3_y7a74"]
+[ext_resource type="StyleBox" uid="uid://dl6iqv0s5kus3" path="res://UI/HitboxPreview/Circle.tres" id="4_cxj22"]
+[ext_resource type="PackedScene" uid="uid://bjnlnpdsf52ja" path="res://Weapons/Projectiles/BaseProjectile.tscn" id="5_4qaua"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nptmd"]
+size = Vector2(40, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ial78"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(33, 126, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wr34"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(399, 126, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fuqs"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(765, 126, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmxgk"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(1131, 126, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sen1w"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(1497, 126, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm7g0"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(33, 477, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ff8n"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(399, 477, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28rtc"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(765, 477, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_legwa"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(1131, 477, 366, 351)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8eack"]
+atlas = ExtResource("3_y7a74")
+region = Rect2(1497, 477, 366, 351)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vr8av"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ial78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wr34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fuqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmxgk")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_sen1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm7g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ff8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28rtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_legwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8eack")
+}],
+"loop": false,
+"name": &"Slash",
+"speed": 40.0
+}]
+
+[node name="BasicGun" type="Node2D" node_paths=PackedStringArray("Projecile", "AmmoBar", "ProjectileNode", "Hitbox", "Animations", "HitboxPreview", "MarkerSprite")]
+script = ExtResource("1_g1he5")
+Projecile = NodePath("Node/BaseProjectile")
+AmmoBar = NodePath("Sprite2D/ProgressBar")
+ProjectileNode = NodePath("Projectiles")
+Hitbox = NodePath("Area2D")
+Animations = NodePath("Area2D/AnimatedSprite2D")
+HitboxPreview = NodePath("Area2D/HitboxPreview")
+MarkerSprite = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://bbksj2gc2tvcx"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.90735e-06, 0)
+rotation = -1.5708
+scale = Vector2(1.14062, 1.09375)
+texture = ExtResource("2_4qaua")
+
+[node name="ProgressBar" type="ProgressBar" parent="Sprite2D"]
+offset_left = -32.0
+offset_top = -19.0
+offset_right = 18.0
+offset_bottom = -9.0
+max_value = 6.0
+show_percentage = false
+
+[node name="Area2D" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -504)
+shape = SubResource("RectangleShape2D_nptmd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+visible = false
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_vr8av")
+animation = &"Slash"
+
+[node name="HitboxPreview" type="Control" parent="Area2D"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Area2D/HitboxPreview"]
+layout_mode = 0
+offset_left = -21.0
+offset_top = -1004.0
+offset_right = 22.0
+offset_bottom = -2.0
+theme_override_styles/panel = ExtResource("4_cxj22")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="BaseProjectile" parent="Node" instance=ExtResource("5_4qaua")]
+
+[node name="Projectiles" type="Node2D" parent="."]

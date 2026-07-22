@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://b50fk4ybb1u00"]
+[gd_resource type="TileSet" format=3 uid="uid://b50fk4ybb1u00"]
 
 [ext_resource type="Texture2D" uid="uid://dl70tf67pt3gn" path="res://Assets/Tilesets/Grass.png" id="1_us5u6"]
 

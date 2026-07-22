@@ -1,29 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1okj442ktiyv"]
+[gd_scene format=3 uid="uid://d1okj442ktiyv"]
 
 [ext_resource type="PackedScene" uid="uid://lr23h0uug70n" path="res://UI/SkillTree/SkillNode.tscn" id="1_ljgm8"]
+[ext_resource type="Script" uid="uid://cew3smovwrx5n" path="res://UI/SkillTree/skill_tree_base.gd" id="1_p5vgn"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1217812014 node_paths=PackedStringArray("CursorInformation")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_p5vgn")
+CursorInformation = NodePath("Information")
 
-[node name="Control" parent="." instance=ExtResource("1_ljgm8")]
-layout_mode = 1
-offset_left = 829.0
-offset_top = 275.0
-offset_right = 829.256
-offset_bottom = 275.04
-AdvancesTo = Dictionary[int, Array]({
-3: [NodePath("../Control2")]
-})
-
-[node name="Control2" parent="." instance=ExtResource("1_ljgm8")]
+[node name="Information" type="Panel" parent="." unique_id=1418688813]
 visible = false
+layout_mode = 0
+offset_right = 1064.0
+offset_bottom = 414.0
+
+[node name="Control" parent="." unique_id=1528088977 node_paths=PackedStringArray("CursorInformation", "BaseNode") instance=ExtResource("1_ljgm8")]
 layout_mode = 1
-offset_left = 128.0
-offset_top = 128.0
-offset_right = 128.256
-offset_bottom = 128.04
+offset_left = 857.0
+offset_top = 739.0
+offset_right = 857.256
+offset_bottom = 738.08997
+scale = Vector2(2, 2)
+CursorInformation = NodePath("../Information")
+BaseNode = NodePath("..")

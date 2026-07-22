@@ -1,19 +1,73 @@
-[gd_scene format=3 uid="uid://brscbitql0gmg"]
+[gd_scene load_steps=4 format=3 uid="uid://brscbitql0gmg"]
 
-[node name="GameUI" type="Control"]
+[ext_resource type="Script" uid="uid://dqa4axknic5b1" path="res://UI/game_ui.gd" id="1_mp46i"]
+[ext_resource type="Script" uid="uid://bmnsraae0tur4" path="res://UI/bar.gd" id="2_kfjql"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfjql"]
+bg_color = Color(0.6, 0.114, 0.114, 0.435294)
+
+[node name="GameUI" type="Control" node_paths=PackedStringArray("CooldownBar", "WeaponLabel", "VBox", "Default")]
+custom_minimum_size = Vector2(3456, 2234)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_mp46i")
+CooldownBar = NodePath("CooldownBar")
+WeaponLabel = NodePath("Label")
+VBox = NodePath("VBoxContainer")
+Default = NodePath("DefaultBar/Bar")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 layout_mode = 0
-offset_top = 513.0
-offset_right = 330.0
-offset_bottom = 649.0
-theme_override_font_sizes/font_size = 30
+offset_top = 1976.0
+offset_right = 696.0
+offset_bottom = 2112.0
+theme_override_font_sizes/font_size = 40
 text = "Current weapon: Bomb"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CooldownBar" type="ProgressBar" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 1976.0
+offset_right = 704.0
+offset_bottom = 2114.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_kfjql")
+value = 50.0
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 1704.0
+offset_right = 704.0
+offset_bottom = 2112.0
+alignment = 2
+
+[node name="DefaultBar" type="Node" parent="."]
+
+[node name="Bar" type="ProgressBar" parent="DefaultBar"]
+visible = false
+custom_minimum_size = Vector2(0, 136)
+offset_top = 1976.0
+offset_right = 704.0
+offset_bottom = 2112.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_kfjql")
+value = 50.0
+show_percentage = false
+script = ExtResource("2_kfjql")
+
+[node name="Label" type="Label" parent="DefaultBar/Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -8,6 +8,10 @@ class_name SkillNode;
 @export var CostLabel : Label;
 @export var Progress : ProgressBar;
 @export var UpgradeButton : Button;
+
+@export var CursorInformation : Panel;
+
+@export var BaseNode : Control;
 #@export var LineClone : Line2D;
 
 var MaxUpgrades : int:
@@ -31,6 +35,7 @@ var CurrentUpgrade : int:
 @export_category("Upgrade information")
 @export var UpgradeName : String;
 @export var UpgradeDesc : String;
+@export_multiline("Used for the information panel") var DetailedDesc : String;
 @export var UpgradeCostBase : float;
 @export var StatUpgraded : String;
 @export var MaxUpgradeBase : int;
@@ -95,8 +100,13 @@ func AddNewLine(_location : Vector2 = Vector2(128,128)) -> void:
 	NewLine.visible = true;
 	return;
 
+func CanPlayerPurchaseUpgrade() -> bool:
+	return true;
+
 func _on_button_pressed() -> void:
-	PurchaseUpgrade()
+	if (!CanPlayerPurchaseUpgrade()): return;
+	
+	PurchaseUpgrade();
 	return;
 
 func PurchaseUpgrade() -> void:
@@ -106,3 +116,19 @@ func PurchaseUpgrade() -> void:
 		CanBeUpgraded = false;
 		return;
 	return;
+
+
+func _on_mouse_entered() -> void:
+	if (!CursorInformation): return;
+	
+	CursorInformation.visible = true;
+	BaseNode.TrackingMovement = true;
+	pass # Replace with function body.
+
+
+func _on_mouse_exited() -> void:
+	if (!CursorInformation): return;
+	
+	CursorInformation.visible = false;
+	BaseNode.TrackingMovement = false;
+	pass # Replace with function body.
